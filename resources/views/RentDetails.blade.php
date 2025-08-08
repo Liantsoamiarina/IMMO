@@ -17,7 +17,6 @@ $pageTitle ="IMMO | Details"
   <div class="single-property section">
     <div class="container">
       <div class="row">
-        <!-- Colonne gauche -->
         <div class="col-lg-8">
           <div class="main-image">
             <img src="assets/images/single-property.jpg" alt="">
@@ -25,52 +24,16 @@ $pageTitle ="IMMO | Details"
           <div class="main-content">
             <span class="category">Apparment</span>
             <h4>24 New Street Miami, OR 24560</h4>
-            <p>Get <strong>the best villa agency</strong> HTML CSS Bootstrap Template for your company website. TemplateMo provides you the <a href="https://www.google.com/search?q=best+free+css+templates" target="_blank">best free CSS templates</a> in the world...</p>
+            <p>Get <strong>the best villa agency</strong> Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat delectus exercitationem omnis hic, nisi vitae vel quidem blanditiis adipisci! Tenetur dolorem saepe atque nobis nisi sunt fugit excepturi sapiente doloribus!</p>
           </div>
-
+          <!-- Accordions -->
           <div class="accordion" id="accordionExample">
-            <div class="accordion-item">
-              <h2 class="accordion-header" id="headingOne">
-                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                  Best useful links ?
-                </button>
-              </h2>
-              <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                <div class="accordion-body">
-                  Dolor <strong>almesit amet</strong>, consectetur adipiscing elit...
-                </div>
-              </div>
-            </div>
-            <div class="accordion-item">
-              <h2 class="accordion-header" id="headingTwo">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                  How does this work ?
-                </button>
-              </h2>
-              <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-                <div class="accordion-body">
-                  Dolor <strong>almesit amet</strong>, consectetur adipiscing elit...
-                </div>
-              </div>
-            </div>
-            <div class="accordion-item">
-              <h2 class="accordion-header" id="headingThree">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                  Why is Villa the best ?
-                </button>
-              </h2>
-              <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
-                <div class="accordion-body">
-                  Dolor <strong>almesit amet</strong>, consectetur adipiscing elit...
-                </div>
-              </div>
-            </div>
+            <!-- ... ton contenu existant ... -->
           </div>
         </div>
 
-        <!-- Colonne droite -->
         <div class="col-lg-4">
-          <div class="info-table">
+          <div class="info-table mb-4">
             <ul>
               <li>
                 <img src="assets/images/info-icon-01.png" alt="" style="max-width: 52px;">
@@ -91,44 +54,37 @@ $pageTitle ="IMMO | Details"
             </ul>
           </div>
 
-<!-- Formulaire coordonnées - Bootstrap 5 -->
-<div class="section contact-us mt-4">
-    <div class="section-heading">
-        <h6>| Contact for Rental</h6>
-        <h2>Provide Your Details</h2>
-    </div>
-    <form action="" method="POST">
-        @csrf
-        <div class="mb-3">
-            <label for="name" class="form-label">Full Name</label>
-            <input type="text" class="form-control" name="name" id="name" placeholder="Your full name" required>
-        </div>
-        <div class="mb-3">
-            <label for="email" class="form-label">Email</label>
-            <input type="email" class="form-control" name="email" id="email" placeholder="Your email address" required>
-        </div>
-        <div class="mb-3">
-            <label for="phone" class="form-label">Phone</label>
-            <input type="tel" class="form-control" name="phone" id="phone" placeholder="Your phone number" required>
-        </div>
-        <div class="mb-3">
-            <label for="address" class="form-label">Address</label>
-            <input type="text" class="form-control" name="address" id="address" placeholder="Your full address" required>
-        </div>
-        <button type="submit" class="btn btn-primary w-100">
-            <i class="fa fa-paper-plane"></i> Send Details
-        </button>
-    </form>
-</div>
-
+          <!-- Formulaire de Location -->
+          <div class="card shadow-sm">
+            <div class="card-body">
+              <h5 class="card-title mb-3">Réserver ce bien</h5>
+              <form action="" method="POST">
+                @csrf
+                <div class="mb-3">
+                  <label for="name" class="form-label">Nom complet</label>
+                  <input type="text" class="form-control" id="name" name="name" placeholder="Entrez votre nom complet" required>
+                </div>
+                <div class="mb-3">
+                  <label for="email" class="form-label">Adresse Email</label>
+                  <input type="email" class="form-control" id="email" name="email" placeholder="exemple@email.com" required>
+                </div>
+                <div class="mb-3">
+                  <label for="phone" class="form-label">Téléphone</label>
+                  <input type="tel" class="form-control" id="phone" name="phone" placeholder="+33 6 12 34 56 78" required>
+                </div>
+                <div class="mb-3">
+                  <label for="address" class="form-label">Adresse</label>
+                  <input type="text" class="form-control" id="address" name="address" placeholder="Votre adresse complète" required>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Envoyer ma demande</button>
+              </form>
+            </div>
+          </div>
+          <!-- Fin Formulaire -->
         </div>
       </div>
     </div>
   </div>
 
-  <div class="section best-deal">
-    <div class="container">
-      <!-- ton contenu Best Deal original -->
-    </div>
-  </div>
+
 @endsection
