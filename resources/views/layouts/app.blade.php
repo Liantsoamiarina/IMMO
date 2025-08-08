@@ -68,6 +68,7 @@
                       <li><a href="{{ route("homepage") }}" class="{{ Route::is("homepage") ? 'active' : '' }}">Home</a></li>
                       <li><a href="{{ route("properties") }}" class="{{ Route::is("properties") ? 'active ' : '' }}">Properties</a></li>
                       <li><a href="{{ route("details") }}" class="{{ Route::is("details") ? 'active':'' }}">Property Details</a></li>
+                      <li><a href="{{ route("Rent") }}" class="{{ Route::is("details") ? 'active':'' }}">Rent Details</a></li>
                         <li>
                         <a href="{{ route("contact") }}" class="{{ Route::is("contact") ? 'active' : '' }}">Contact Us</a></li>
                       <li><a href="#"><i class="fa fa-calendar"></i> Schedule a visit</a></li>

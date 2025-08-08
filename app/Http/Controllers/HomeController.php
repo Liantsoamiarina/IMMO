@@ -18,4 +18,7 @@ class HomeController extends Controller
     public function details(){
         return view("propertiesDetails");
     }
+    public function Rentdetails(){
+        return view("RentDetails");
+    }
 }

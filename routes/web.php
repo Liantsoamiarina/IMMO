@@ -18,3 +18,4 @@ Route::get('/',[HomeController::class,"index"])->name("homepage");
 Route::get('/contact',[HomeController::class,"contact"])->name("contact");
 Route::get('/properties',[HomeController::class,"properties"])->name("properties");
 Route::get('/details',[HomeController::class,"details"])->name("details");
+Route::get('/Rent',[HomeController::class,"RentDetails"])->name("Rent");
