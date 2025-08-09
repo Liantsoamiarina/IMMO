@@ -59,8 +59,9 @@
             <div class="col-12">
                 <nav class="main-nav">
                     <!-- ***** Logo Start ***** -->
-                    <a href="{{ asset("assets/images/Logo/Logo (2).png") }}" class="logo">
-                    <h1>E'mmo</h1>
+                    <a href="/" class="logo">
+                        <img src="{{ asset("assets/images/Logo/Logo (2).png") }}" alt="logo"">
+                        <h1>mmo</h1>
                     </a>
                     <!-- ***** Logo End ***** -->
                     <!-- ***** Menu Start ***** -->

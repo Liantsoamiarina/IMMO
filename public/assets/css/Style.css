@@ -411,12 +411,20 @@ Header Style
   -moz-transition: all 0.3s ease 0s;
   -o-transition: all 0.3s ease 0s;
   transition: all 0.3s ease 0s;
-  display: inline-block;
-}
+  display: flex;
 
+}
+/* logo navbar */
+.header-area .main-nav .logo img{
+    height: 68px;
+    width: auto;
+    object-fit: contain;
+}
 .header-area .main-nav .logo h1 {
   line-height: 100px;
-  font-size: 28px;
+  font-size: 56px;
+  margin-top: -8px;
+  margin-left: -10px;
   text-transform: uppercase;
   color: #1e1e1e;
   font-weight: 700;
