@@ -23,3 +23,12 @@ Route::get('/Rent',[HomeController::class,"RentDetails"])->name("Rent");
 
 // Admincontroller
 Route::get('/admin', [Admincontroller::class, 'admin'])->name('admin.dashboard');
+
+
+// routes/web.php
+Route::get('/current-time', function () {
+    return response()->json([
+        'time' => now()->format('H:i:s')
+    ]);
+});
+
