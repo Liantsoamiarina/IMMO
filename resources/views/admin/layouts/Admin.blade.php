@@ -14,7 +14,7 @@
 <div class="wrap">
   <aside>
     <div class="brand">
-      <div class="logo">Y</div>
+      <img class="logo" src="{{ asset("assets/images/Logo/Logo (2).png") }}" alt="" >
       <h1>EMMO</h1>
     </div>
     <nav>

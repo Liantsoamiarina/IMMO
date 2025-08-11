@@ -22,5 +22,4 @@ Route::get('/details',[HomeController::class,"details"])->name("details");
 Route::get('/Rent',[HomeController::class,"RentDetails"])->name("Rent");
 
 // Admincontroller
-
 Route::get('/admin', [Admincontroller::class, 'admin'])->name('admin.dashboard');

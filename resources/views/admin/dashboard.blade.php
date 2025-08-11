@@ -26,7 +26,9 @@
   }
   body.dark aside { border-color: #3a3a4f; }
   .brand { display: flex; align-items: center; gap: 10px; margin-bottom: 28px; font-weight: 700; }
-  .logo { width: 36px; height: 36px; background: var(--accent); display: flex; align-items: center; justify-content: center; border-radius: 8px; color: #fff; font-weight: 700; }
+  .logo { width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; border-radius: 8px; color: #fff; font-weight: 700; }
+
+
   nav { display: flex; flex-direction: column; gap: 12px; }
   .nav-item { display: flex; align-items: center; gap: 10px; padding: 10px; border-radius: 10px; color: var(--muted); cursor: pointer; font-weight: 500; transition: background 0.3s, color 0.3s; }
   .nav-item i { width: 18px; text-align: center; }
