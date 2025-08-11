@@ -10,6 +10,7 @@
 <script src="{{ asset("assets/js/all.min.js") }}"></script>
 </head>
 <body>
+    @yield("style")
 <div class="wrap">
   <aside>
     <div class="brand">
@@ -27,3 +28,4 @@
   @yield('body')
   </body>
 </html>
+@yield('scripts')

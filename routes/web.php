@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admincontroller;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 
@@ -19,3 +20,7 @@ Route::get('/contact',[HomeController::class,"contact"])->name("contact");
 Route::get('/properties',[HomeController::class,"properties"])->name("properties");
 Route::get('/details',[HomeController::class,"details"])->name("details");
 Route::get('/Rent',[HomeController::class,"RentDetails"])->name("Rent");
+
+// Admincontroller
+
+Route::get('/admin', [Admincontroller::class, 'admin'])->name('admin.dashboard');
