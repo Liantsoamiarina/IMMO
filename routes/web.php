@@ -1,8 +1,11 @@
 <?php
 
-use App\Http\Controllers\Admincontroller;
+
+use App\Http\Livewire\Properties;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Admincontroller;
+
 
 /*
 |--------------------------------------------------------------------------

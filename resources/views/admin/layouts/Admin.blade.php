@@ -18,11 +18,11 @@
       <h1>EMMO</h1>
     </div>
     <nav>
-      <div class="nav-item active"><i class="fa-solid fa-chart-line"></i> Dashboard</div>
-      <div class="nav-item"><i class="fa-solid fa-building"></i> Properties</div>
-      <div class="nav-item"><i class="fa-solid fa-user-tie"></i> Agents</div>
-      <div class="nav-item"><i class="fa-solid fa-user"></i> My Profile</div>
-      <div class="nav-item"><i class="fa-solid fa-right-from-bracket"></i> Logout</div>
+      <a class="nav-item active"><i class="fa-solid fa-chart-line"></i> Dashboard</a>
+      <a href="{{ route("property") }}" class="nav-item"><i class="fa-solid fa-building"></i> Properties</a>
+      <a class="nav-item"><i class="fa-solid fa-user-tie"></i> Agents</a>
+      <a class="nav-item"><i class="fa-solid fa-user"></i> My Profile</a>
+      <a class="nav-item"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
     </nav>
   </aside>
   @yield('body')
