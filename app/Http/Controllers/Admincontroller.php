@@ -13,7 +13,7 @@ class Admincontroller extends Controller
     }
     public function property()
     {
-        return view('livewire.properties');
+        return view('admin.proprety');
 }
 }
 

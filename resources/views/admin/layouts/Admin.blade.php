@@ -19,7 +19,7 @@
     </div>
     <nav>
       <a class="nav-item active"><i class="fa-solid fa-chart-line"></i> Dashboard</a>
-      <a href="{{ route("property") }}" class="nav-item"><i class="fa-solid fa-building"></i> Properties</a>
+      <a href="{{ route("admin.property") }}" class="nav-item"><i class="fa-solid fa-building"></i> Properties</a>
       <a class="nav-item"><i class="fa-solid fa-user-tie"></i> Agents</a>
       <a class="nav-item"><i class="fa-solid fa-user"></i> My Profile</a>
       <a class="nav-item"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>

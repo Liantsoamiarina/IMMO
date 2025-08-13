@@ -26,6 +26,7 @@ Route::get('/Rent',[HomeController::class,"RentDetails"])->name("Rent");
 
 // Admincontroller
 Route::get('/admin', [Admincontroller::class, 'admin'])->name('admin.dashboard');
+Route::get('/property', [Admincontroller::class, 'property'])->name('admin.property');
 
 
 // routes/web.php
