@@ -28,7 +28,7 @@
     </nav>
   </aside>
   @yield('body')
-
+  <script src="{{ asset("assets/js/dashboard.js") }}"></script>
   <script src="{{ asset("assets/js/chart.min.js") }}"></script>
 <script src="{{ asset("assets/js/all.min.js") }}"></script>
 <script src="{{ asset("assets/bootstrap/js/bootstrap.min.js") }}"></script>
