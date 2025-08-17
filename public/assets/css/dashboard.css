@@ -118,3 +118,6 @@
     padding: 5px 10px;
     border-radius: 8px;
   }
+  #filtre1 ,#filtre2{
+    background-color: var(--accent);
+  }

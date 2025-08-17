@@ -32,12 +32,12 @@
 
         <!-- Filtres -->
         <div class="d-flex gap-2 flex-wrap mb-4">
-            <button class="btn filtre fw-bold text-white">Sort Price ↓</button>
+            <button id="filtre1" class="btn fw-bold text-white">Sort Price ↓</button>
             <input type="text" class="form-control" placeholder="Search by title" style="min-width: 200px;">
             <select class="form-select" style="min-width: 100px;">
                 <option>All</option>
             </select>
-            <button class="btn filtre fw-bold text-white"><i class="fa fa-plus"></i> Add Property</button>
+            <button id="filtre2" class="btn  fw-bold text-white"><i class="fa fa-plus"></i> Add Property</button>
         </div>
 
         <!-- Grille des propriétés -->
