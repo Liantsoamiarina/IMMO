@@ -37,7 +37,7 @@
             <select class="form-select" style="min-width: 100px;">
                 <option>All</option>
             </select>
-            <button id="filtre2" class="btn  fw-bold text-white"><i class="fa fa-plus"></i> Add Property</button>
+            <a href="{{ route("createproperty") }}" id="filtre2" class="btn  fw-bold text-white" ><i class="fa fa-plus"></i> Add Property</a>
         </div>
 
         <!-- Grille des propriétés -->

@@ -14,7 +14,11 @@ class Admincontroller extends Controller
     public function property()
     {
         return view('admin.proprety');
-}
+    }
+    public function Cproperty()
+    {
+        return view('admin.createproperty');
+    }
 }
 
 
