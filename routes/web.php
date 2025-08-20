@@ -1,7 +1,6 @@
 <?php
 
 
-use App\Http\Livewire\Properties;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
@@ -32,28 +31,28 @@ Route::get('/property', [Admincontroller::class, 'property'])->name('admin.prope
 Route::get('/createproperty', [Admincontroller::class, 'Cproperty'])->name('createproperty');
 
 
-// routes/web.php
+// date
 Route::get('/current-time', function () {
     return response()->json([
         'time' => now()->format('H:i:s')
     ]);
 });
 
-// login et register
-Route::get('register', [AuthController::class, 'showRegister'])->name('register.form');
-Route::post('register', [AuthController::class, 'register'])->name('register');
 
-Route::get('login', [AuthController::class, 'showLogin'])->name('login.form');
-Route::post('login', [AuthController::class, 'login'])->name('login');
-Route::post('logout', [AuthController::class, 'logout'])->name('logout');
+# Client
+Route::get('/register', [AuthController::class, 'showRegister'])->name('register.form');
+Route::post('/register', [AuthController::class, 'register'])->name('register');
 
-//forgot password
-// Route::get('password/forgot', [PasswordResetController::class, 'showForgotForm'])->name('password.request');
-// Route::post('password/email', [PasswordResetController::class, 'sendResetLink'])->name('password.email');
-// Route::get('password/reset/{token}', [PasswordResetController::class, 'showResetForm'])->name('password.reset');
-// Route::post('password/reset', [PasswordResetController::class, 'resetPassword'])->name('password.update');
+# Owner
+Route::get('/register-owner', [AuthController::class, 'showRegisterOwner'])->name('register.owner.form');
+Route::post('/register-owner', [AuthController::class, 'registerOwner'])->name('register.owner');
 
-//redirection dashboard
+# Auth commun
+Route::get('/login', [AuthController::class, 'showLogin'])->name('login.form');
+Route::post('/login', [AuthController::class, 'login'])->name('login');
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+//redirection par role
 Route::middleware('auth')->get('/dashboard', function () {
     $user = Auth::user();
 
@@ -62,7 +61,6 @@ Route::middleware('auth')->get('/dashboard', function () {
     } elseif ($user->role === 'owner') {
         return view('dashboard.owner');
     } else {
-        return view('dashboard.client');
+        return view('home'); // client va à la page d'accueil
     }
 })->name('dashboard');
-

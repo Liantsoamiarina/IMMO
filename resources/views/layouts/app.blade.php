@@ -72,6 +72,8 @@
                       <li><a href="{{ route("Rent") }}" class="{{ Route::is("Rent") ? 'active':'' }}">Rent Details</a></li>
                         <li>
                         <a href="{{ route("contact") }}" class="{{ Route::is("contact") ? 'active' : '' }}">Contact Us</a></li>
+                        <li>
+                        <a href="{{ route("login.form") }}" class="{{ Route::is("login.form") ? 'active' : '' }}">Se connecter</a></li>
                       <li><a href="#"><i class="fa fa-calendar"></i> Schedule a visit</a></li>
                   </ul>
                     <a class='menu-trigger'>

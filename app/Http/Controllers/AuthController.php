@@ -34,6 +34,30 @@ class AuthController extends Controller
         Auth::login($user);
         return redirect()->route('dashboard');
     }
+     // ----- Owner -----
+    public function showRegisterOwner()
+    {
+        return view('auth.register-owner');
+    }
+
+    public function registerOwner(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string',
+            'email' => 'required|email|unique:users',
+            'password' => 'required|min:6|confirmed',
+        ]);
+
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'role' => 'owner',
+        ]);
+
+        Auth::login($user);
+        return redirect()->route('dashboard');
+    }
 
     // Formulaire login
     public function showLogin()
@@ -42,19 +66,27 @@ class AuthController extends Controller
     }
 
     // Connexion
-    public function login(Request $request)
-    {
-        $credentials = $request->only('email', 'password');
+public function login(Request $request)
+{
+    $credentials = $request->only('email', 'password');
 
-        if (Auth::attempt($credentials, $request->filled('remember'))) {
-            $request->session()->regenerate();
+    if (Auth::attempt($credentials, $request->filled('remember'))) {
+        $request->session()->regenerate();
 
-            $user = Auth::user();
-            return redirect()->route('dashboard')->with('status', 'Bienvenue '.$user->name);
+        $user = Auth::user();
+
+        if ($user->role === 'admin') {
+            return redirect()->route('dashboard');
+        } elseif ($user->role === 'owner') {
+            return redirect()->route('dashboard');
+        } else {
+            return redirect('/');
         }
-
-        return back()->withErrors(['email' => 'Identifiants invalides']);
     }
+
+    return back()->withErrors(['email' => 'Identifiants invalides']);
+}
+
 
     // Déconnexion
     public function logout(Request $request)
