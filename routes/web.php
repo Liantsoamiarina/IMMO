@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admincontroller;
-
+use App\Livewire\CreateProperty;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,7 +28,7 @@ Route::get('/Rent',[HomeController::class,"RentDetails"])->name("Rent");
 // Admincontroller
 Route::get('/admin', [Admincontroller::class, 'admin'])->name('admin.dashboard');
 Route::get('/property', [Admincontroller::class, 'property'])->name('admin.property');
-Route::get('/createproperty', [Admincontroller::class, 'Cproperty'])->name('createproperty');
+Route::get('/createproperty', [CreateProperty::class, 'Cproperty'])->name('createproperty');
 
 
 // date
