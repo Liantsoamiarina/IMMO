@@ -94,6 +94,6 @@ public function login(Request $request)
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect()->route('login.form');
+        return redirect()->route('homepage');
     }
 }

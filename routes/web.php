@@ -57,7 +57,7 @@ Route::middleware('auth')->get('/dashboard', function () {
     $user = Auth::user();
 
     if ($user->role === 'admin') {
-        return view('dashboard.admin');
+        return view('admin.dashboard');
     } elseif ($user->role === 'owner') {
         return view('dashboard.owner');
     } else {

@@ -15,6 +15,11 @@
     <link rel="stylesheet" href="{{ asset("assets/css/owl.css") }}">
     <link rel="stylesheet" href="{{ asset("assets/css/animate.css") }}"">
     <link rel="stylesheet"href="{{ asset("assets/css/swiper-bundle.min.css") }}"/>
+   {{-- popup login --}}
+<link rel="stylesheet" href="{{ asset("assets/notyf/notyf.min.css") }}">
+
+
+
   </head>
 
 <body>
@@ -73,7 +78,57 @@
                         <li>
                         <a href="{{ route("contact") }}" class="{{ Route::is("contact") ? 'active' : '' }}">Contact Us</a></li>
                         <li>
-                        <a href="{{ route("login.form") }}" class="{{ Route::is("login.form") ? 'active' : '' }}">Se connecter</a></li>
+                            @if(Auth::check())
+    {{-- popup Notyf --}}
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const notyf = new Notyf({
+            duration: 5000,
+            position: { x: 'left', y: 'top' },
+            dismissible: true
+        });
+        notyf.success("Bonjour, {{ Auth::user()->name }} !");
+    });
+    </script>
+
+    <!-- L'utilisateur est connecté -->
+    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display:flex;">
+        @csrf
+        <button type="button" id="logout-btn" class="{{ Route::is('login.form') ? 'active' : '' }}"
+                style="background:none;border:none;padding:0;cursor:pointer;margin-top:-28px;">
+            <i class="fa fa-sign-out"></i>
+        </button>
+    </form>
+
+    {{-- SweetAlert2 --}}
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        document.getElementById('logout-btn').addEventListener('click', function(e) {
+            e.preventDefault();
+            Swal.fire({
+                title: 'Êtes-vous sûr ?',
+                text: "Déconnecté(e) {{ Auth::user()->email }}.",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Oui, déconnecter',
+                cancelButtonText: 'Annuler'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    document.getElementById('logout-form').submit();
+                }
+            });
+        });
+    </script>
+
+@else
+    <!-- L'utilisateur n'est pas connecté -->
+    <a href="{{ route('login.form') }}" class="{{ Route::is('login.form') ? 'active' : '' }}">
+        Se connecter
+    </a>
+@endif
+
                       <li><a href="#"><i class="fa fa-calendar"></i> Schedule a visit</a></li>
                   </ul>
                     <a class='menu-trigger'>
@@ -102,10 +157,16 @@
   <!-- Scripts -->
   <script src="{{ asset("assets/jquery/jquery.min.js") }}"></script>
   <script src="{{ asset("assets/bootstrap/js/bootstrap.min.js") }}"></script>
+  <!-- Avant la fermeture de </body> -->
+<script src="{{ asset("assets/notyf/notyf.min.js") }}"></script>
+<script src="{{ asset("assets/js/sweetalert2.min.js") }}"></script>
+
+
   <script src="{{ asset("assets/js/isotope.min.js") }}"></script>
   <script src="{{ asset("assets/js/owl-carousel.js") }}"></script>
   <script src="{{ asset("assets/js/counter.js") }}"></script>
   <script src="{{ asset("assets/js/custom.js") }}"></script>
+
 
   </body>
 </html>

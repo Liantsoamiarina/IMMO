@@ -5,19 +5,6 @@
       <div id="currentDateTime" class="text-center badge bg-primary p-3"></div>
 
 
-<script>
-    function fetchServerTime() {
-        fetch('/current-time')
-            .then(response => response.json())
-            .then(data => {
-                document.getElementById('currentDateTime').textContent = data.time;
-            });
-    }
-
-    setInterval(fetchServerTime, 1000); // toutes les secondes
-    fetchServerTime();
-</script>
-
       <div style="display:flex; gap:15px; align-items:center;">
         <svg id="themeToggle" class="toggle-icon" viewBox="0 0 24 24">
           <path d="M21.64 13.65A9 9 0 1110.35 2.36a7 7 0 0011.29 11.29z"/>
