@@ -13,7 +13,7 @@
   <div class="form-container mt-4">
     <h2>Create Property</h2>
 
-    <form action="" method="post" enctype="multipart/form-data">
+    <form action="{{ route('properties.store') }}" method="post" enctype="multipart/form-data">
       @csrf
 
           <label for="name">Enter the property name</label>

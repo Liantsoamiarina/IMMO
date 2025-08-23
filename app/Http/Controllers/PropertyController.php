@@ -28,6 +28,11 @@ class PropertyController extends Controller
      */
     public function store(Request $request)
     {
+         $request->validate([
+            'title' => 'required|string|max:255',
+            'price' => 'required|numeric',
+            'type' => 'required|string',
+        ]);
         Property::create([
             'user_id' => auth()->id(),
             'title' => $request->input('title'),
@@ -43,5 +48,7 @@ class PropertyController extends Controller
             'city' => $request->input('city'),
             'country' => $request->input('country')
         ]);
+
+         return redirect()->route('properties.index')->with('success', 'Annonce créée avec succès');
     }
 }

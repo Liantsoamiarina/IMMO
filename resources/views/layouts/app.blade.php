@@ -72,7 +72,7 @@
                     <!-- ***** Menu Start ***** -->
                     <ul class="nav">
                       <li><a href="{{ route("homepage") }}" class="{{ Route::is("homepage") ? 'active' : '' }}">Home</a></li>
-                      <li><a href="{{ route("properties") }}" class="{{ Route::is("properties") ? 'active ' : '' }}">Properties</a></li>
+                      <li><a href="{{ route("propertie") }}" class="{{ Route::is("properties") ? 'active ' : '' }}">Properties</a></li>
                       <li><a href="{{ route("details") }}" class="{{ Route::is("details") ? 'active':'' }}">Property Details</a></li>
                       <li><a href="{{ route("Rent") }}" class="{{ Route::is("Rent") ? 'active':'' }}">Rent Details</a></li>
                         <li>

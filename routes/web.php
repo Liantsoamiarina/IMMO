@@ -6,7 +6,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admincontroller;
-use App\Livewire\CreateProperty;
+use App\Http\Controllers\PropertyController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -21,15 +22,16 @@ use App\Livewire\CreateProperty;
 
 Route::get('/',[HomeController::class,"index"])->name("homepage");
 Route::get('/contact',[HomeController::class,"contact"])->name("contact");
-Route::get('/properties',[HomeController::class,"properties"])->name("properties");
+Route::get('/propertie',[HomeController::class,"propertie"])->name("propertie");
 Route::get('/details',[HomeController::class,"details"])->name("details");
 Route::get('/Rent',[HomeController::class,"RentDetails"])->name("Rent");
 
 // Admincontroller
 Route::get('/admin', [Admincontroller::class, 'admin'])->name('admin.dashboard');
 Route::get('/property', [Admincontroller::class, 'property'])->name('admin.property');
-Route::get('/createproperty', [CreateProperty::class, 'Cproperty'])->name('createproperty');
+Route::get('/createproperty', [PropertyController::class, 'Cproperty'])->name('createproperty');
 
+Route::resource('properties', PropertyController::class)->middleware('auth');
 
 // date
 Route::get('/current-time', function () {

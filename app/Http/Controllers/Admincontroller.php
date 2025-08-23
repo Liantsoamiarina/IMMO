@@ -15,10 +15,7 @@ class Admincontroller extends Controller
     {
         return view('admin.proprety');
     }
-    public function Cproperty()
-    {
-        return view('admin.createproperty');
-    }
+
 }
 
 
