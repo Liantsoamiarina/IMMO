@@ -22,33 +22,6 @@ class PropertyController extends Controller
     {
         return view('admin.createproperty');
     }
-
-    /**
-     * Store a newly created property in storage.
-     */
-    public function store(Request $request)
-    {
-         $request->validate([
-            'title' => 'required|string|max:255',
-            'price' => 'required|numeric',
-            'type' => 'required|string',
-        ]);
-        Property::create([
-            'user_id' => auth()->id(),
-            'title' => $request->input('title'),
-            'description' => $request->input('description'),
-            'price' => $request->input('price'),
-            'type' => $request->input('type'),
-            'transaction_type' => $request->input('transaction_type'),
-            'surface' => $request->input('surface'),
-            'rooms' => $request->input('rooms'),
-            'floors' => $request->input('floors'),
-            'parking' => $request->has('parking') ? true : false,
-            'address' => $request->input('address'),
-            'city' => $request->input('city'),
-            'country' => $request->input('country')
-        ]);
-
-         return redirect()->route('properties.index')->with('success', 'Annonce créée avec succès');
     }
-}
+
+

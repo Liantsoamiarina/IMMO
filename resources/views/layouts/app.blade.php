@@ -8,7 +8,7 @@
     <title>{{$pageTitle ?? "Immobilier" }}</title>
     <link rel="stylesheet" href="{{ asset("assets/css/fontawesome.css") }}">
     <link href="{{ asset("assets/bootstrap/css/bootstrap.min.css") }}" rel="stylesheet">
-
+    @livewire("styles")
     <!-- Additional CSS Files -->
     <link rel="stylesheet" href="{{ asset("assets/css/Style.css") }}">
 
@@ -153,7 +153,7 @@
       </div>
     </div>
   </footer>
-
+@livewire("scripts")
   <!-- Scripts -->
   <script src="{{ asset("assets/jquery/jquery.min.js") }}"></script>
   <script src="{{ asset("assets/bootstrap/js/bootstrap.min.js") }}"></script>

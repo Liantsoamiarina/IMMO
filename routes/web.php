@@ -29,7 +29,7 @@ Route::get('/Rent',[HomeController::class,"RentDetails"])->name("Rent");
 // Admincontroller
 Route::get('/admin', [Admincontroller::class, 'admin'])->name('admin.dashboard');
 Route::get('/property', [Admincontroller::class, 'property'])->name('admin.property');
-Route::get('/createproperty', [PropertyController::class, 'Cproperty'])->name('createproperty');
+
 
 Route::resource('properties', PropertyController::class)->middleware('auth');
 
@@ -66,3 +66,10 @@ Route::middleware('auth')->get('/dashboard', function () {
         return view('home'); // client va à la page d'accueil
     }
 })->name('dashboard');
+
+//livewire
+Route::middleware('auth')
+    ->get('/createproperty', [PropertyController::class, 'Cproperty'])
+    ->name('createproperty');
+
+
