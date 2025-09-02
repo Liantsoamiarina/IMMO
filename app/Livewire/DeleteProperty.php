@@ -3,15 +3,15 @@
 namespace App\Livewire;
 
 use Livewire\Component;
-use Livewire\WithPagination;
 use App\Models\Property;
+use Livewire\WithPagination;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
-class Properties extends Component
+class DeleteProperty extends Component
 {
     use WithPagination;
-    // Propriétés pour la recherche et les filtres
+
     public $search = '';
     public $typeFilter = '';
     public $transactionFilter = '';
@@ -19,7 +19,6 @@ class Properties extends Component
     public $sortDirection = 'desc';
     public $perPage = 12;
 
-    // Statistiques
     public $totalProperties = 0;
     public $forSaleCount = 0;
     public $forRentCount = 0;
@@ -126,9 +125,11 @@ class Properties extends Component
         session()->flash('success', 'Propriété supprimée avec succès.');
     }
 
-        public function render()
-        {
-        return view('livewire.properties');
-        }
+public function render()
+{
+    return view('livewire.delete-property');
 }
+}
+
+
 
