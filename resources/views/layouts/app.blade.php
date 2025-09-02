@@ -8,22 +8,21 @@
     <title>{{$pageTitle ?? "Immobilier" }}</title>
     <link rel="stylesheet" href="{{ asset("assets/css/fontawesome.css") }}">
     <link href="{{ asset("assets/bootstrap/css/bootstrap.min.css") }}" rel="stylesheet">
-    @livewire("styles")
-    <!-- Additional CSS Files -->
+    @livewireStyles
+
     <link rel="stylesheet" href="{{ asset("assets/css/Style.css") }}">
 
     <link rel="stylesheet" href="{{ asset("assets/css/owl.css") }}">
-    <link rel="stylesheet" href="{{ asset("assets/css/animate.css") }}"">
+    <link rel="stylesheet" href="{{ asset("assets/css/animate.css") }}">
     <link rel="stylesheet"href="{{ asset("assets/css/swiper-bundle.min.css") }}"/>
    {{-- popup login --}}
 <link rel="stylesheet" href="{{ asset("assets/notyf/notyf.min.css") }}">
 
 
-
   </head>
 
 <body>
-  <!-- ***** Preloader Start ***** -->
+
   <div id="js-preloader" class="js-preloader">
     <div class="preloader-inner">
       <span class="dot"></span>
@@ -34,7 +33,7 @@
       </div>
     </div>
   </div>
-  <!-- ***** Preloader End ***** -->
+
 
   <div class="sub-header">
     <div class="container">
@@ -57,19 +56,18 @@
     </div>
   </div>
 
-  <!-- ***** Header Area Start ***** -->
+
   <header class="header-area header-sticky">
     <div class="container">
         <div class="row">
             <div class="col-12">
                 <nav class="main-nav">
-                    <!-- ***** Logo Start ***** -->
+
                     <a href="/" class="logo">
                         <img src="{{ asset("assets/images/Logo/Logo (2).png") }}" alt="logo"">
                         <h1>mmo</h1>
                     </a>
-                    <!-- ***** Logo End ***** -->
-                    <!-- ***** Menu Start ***** -->
+
                     <ul class="nav">
                       <li><a href="{{ route("homepage") }}" class="{{ Route::is("homepage") ? 'active' : '' }}">Home</a></li>
                       <li><a href="{{ route("propertie") }}" class="{{ Route::is("properties") ? 'active ' : '' }}">Properties</a></li>
@@ -91,7 +89,7 @@
     });
     </script>
 
-    <!-- L'utilisateur est connecté -->
+
     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display:flex;">
         @csrf
         <button type="button" id="logout-btn" class="{{ Route::is('login.form') ? 'active' : '' }}"
@@ -123,7 +121,7 @@
     </script>
 
 @else
-    <!-- L'utilisateur n'est pas connecté -->
+
     <a href="{{ route('login.form') }}" class="{{ Route::is('login.form') ? 'active' : '' }}">
         Se connecter
     </a>
@@ -134,13 +132,13 @@
                     <a class='menu-trigger'>
                         <span>Menu</span>
                     </a>
-                    <!-- ***** Menu End ***** -->
+
                 </nav>
             </div>
         </div>
     </div>
   </header>
-  <!-- ***** Header Area End ***** -->
+
 @yield("body")
 
 
@@ -153,11 +151,13 @@
       </div>
     </div>
   </footer>
-@livewire("scripts")
-  <!-- Scripts -->
+@livewireScripts
+
+
+
   <script src="{{ asset("assets/jquery/jquery.min.js") }}"></script>
   <script src="{{ asset("assets/bootstrap/js/bootstrap.min.js") }}"></script>
-  <!-- Avant la fermeture de </body> -->
+
 <script src="{{ asset("assets/notyf/notyf.min.js") }}"></script>
 <script src="{{ asset("assets/js/sweetalert2.min.js") }}"></script>
 
