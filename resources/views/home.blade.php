@@ -7,20 +7,20 @@ $pageTitle ="Immo | Acceuil";
     <div class="owl-carousel owl-banner">
       <div class="item item-1">
         <div class="header-text">
-          <span class="category">Toronto, <em>Canada</em></span>
-          <h2>Hurry!<br>Get the Best Villa for you</h2>
+          <span class="category">Antanarivo, <em>Madagascar</em></span>
+          <h2><br> la meilleure propriété est à vous ! </h2>
         </div>
       </div>
       <div class="item item-2">
         <div class="header-text">
-          <span class="category">Melbourne, <em>Australia</em></span>
-          <h2>Be Quick!<br>Get the best villa in town</h2>
+          <span class="category">Antanarivo, <em>Madagascar</em></span>
+          <h2><br>le meilleur bien à louer part vite </h2>
         </div>
       </div>
       <div class="item item-3">
         <div class="header-text">
           <span class="category">Miami, <em>South Florida</em></span>
-          <h2>Act Now!<br>Get the highest level penthouse</h2>
+          <h2><br>Obtenez le penthouse le plus prestigieux.</h2>
         </div>
       </div>
     </div>
@@ -104,7 +104,7 @@ $pageTitle ="Immo | Acceuil";
     </div>
   </div>
 
-  <div class="video section">
+  {{-- <div class="video section">
     <div class="container">
       <div class="row">
         <div class="col-lg-4 offset-lg-4">
@@ -128,8 +128,338 @@ $pageTitle ="Immo | Acceuil";
         </div>
       </div>
     </div>
-  </div>
+  </div> --}}
+<style>
+        .section-heading {
+            text-align: center;
+            margin-bottom: 70px;
+        }
 
+        .section-heading h6 {
+            font-size: 15px;
+            color: #f35525;
+            text-transform: uppercase;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .section-heading h2 {
+            font-size: 42px;
+            font-weight: 700;
+            color: #2a2a2a;
+            line-height: 54px;
+        }
+
+        /* Container des cartes */
+        .pricing-cards {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        /* Style de base pour toutes les cartes */
+        .pricing-card {
+            background: white;
+            border-radius: 15px;
+            padding: 40px 30px;
+            width: 100%;
+            max-width: 350px;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            overflow: hidden;
+        }
+
+        .pricing-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: #f35525;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Carte Gratuite */
+        .pricing-card.free {
+            border-color: #e5e7eb;
+        }
+
+        .pricing-card.free::before {
+            background: linear-gradient(135deg, #6b7280 0%, #9ca3af 100%);
+        }
+
+        .pricing-card.free .plan-icon {
+            background: linear-gradient(135deg, #6b7280 0%, #9ca3af 100%);
+        }
+
+        /* Carte Silver */
+        .pricing-card.silver {
+            border-color: #d1d5db;
+            transform: scale(1.05);
+        }
+
+        .pricing-card.silver::before {
+            background: linear-gradient(135deg, #9ca3af 0%, #d1d5db 100%);
+        }
+
+        .pricing-card.silver .plan-icon {
+            background: linear-gradient(135deg, #9ca3af 0%, #d1d5db 100%);
+        }
+
+        .pricing-card.silver .popular-badge {
+            position: absolute;
+            top: -1px;
+            right: 30px;
+            background: #f35525;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 0 0 10px 10px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Carte Gold */
+        .pricing-card.gold {
+            border-color: #fbbf24;
+            background: linear-gradient(145deg, #fefce8 0%, #fef3c7 100%);
+        }
+
+        .pricing-card.gold::before {
+            background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);
+        }
+
+        .pricing-card.gold .plan-icon {
+            background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);
+        }
+
+        /* Header des cartes */
+        .plan-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .plan-icon {
+            width: 70px;
+            height: 70px;
+            margin: 0 auto 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+        }
+
+        .plan-name {
+            font-size: 24px;
+            font-weight: 700;
+            color: #2a2a2a;
+            margin-bottom: 10px;
+        }
+
+        .plan-description {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* Prix */
+        .plan-price {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .price {
+            font-size: 48px;
+            font-weight: 800;
+            color: #f35525;
+            line-height: 1;
+        }
+
+        .price-currency {
+            font-size: 24px;
+            vertical-align: top;
+        }
+
+        .price-period {
+            color: #666;
+            font-size: 16px;
+            margin-top: 5px;
+        }
+
+        /* Liste des fonctionnalités */
+        .features-list {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 35px;
+        }
+
+        .features-list li {
+            padding: 12px 0;
+            color: #555;
+            font-size: 15px;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .features-list li:last-child {
+            border-bottom: none;
+        }
+
+        .feature-icon {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #10b981;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-size: 10px;
+            flex-shrink: 0;
+        }
+
+        .feature-icon.disabled {
+            background: #e5e7eb;
+            color: #9ca3af;
+        }
+
+        /* Boutons */
+        .plan-button {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        /* Bouton plan gratuit */
+        .free .plan-button {
+            background: #f8f9fa;
+            color: #6b7280;
+            border: 2px solid #e5e7eb;
+        }
+
+        .free .plan-button:hover {
+            background: #e5e7eb;
+            color: #374151;
+        }
+
+        /* Bouton plan silver */
+        .silver .plan-button {
+            background: #f35525;
+            color: white;
+        }
+
+        .silver .plan-button:hover {
+            background: #e04411;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(243, 85, 37, 0.3);
+        }
+
+        /* Bouton plan gold */
+        .gold .plan-button {
+            background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
+        }
+
+        .gold .plan-button:hover {
+            background: linear-gradient(135deg, #d97706 0%, #f59e0b 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(245, 158, 11, 0.4);
+        }
+
+        /* Badge recommandé */
+        .recommended-badge {
+            position: absolute;
+            top: 20px;
+            right: -35px;
+            background: #10b981;
+            color: white;
+            padding: 5px 40px;
+            font-size: 12px;
+            font-weight: 600;
+            transform: rotate(45deg);
+            text-transform: uppercase;
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .pricing-cards {
+                gap: 20px;
+            }
+
+            .pricing-card.silver {
+                transform: scale(1);
+            }
+
+            .section-heading h2 {
+                font-size: 32px;
+                line-height: 42px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .section {
+                padding: 60px 0;
+            }
+
+            .pricing-card {
+                padding: 30px 25px;
+                max-width: 100%;
+            }
+
+            .price {
+                font-size: 36px;
+            }
+        }
+
+        /* Animation d'entrée */
+        .pricing-card {
+            opacity: 0;
+            transform: translateY(50px);
+            animation: slideInUp 0.6s ease-out forwards;
+        }
+
+        .pricing-card:nth-child(2) {
+            animation-delay: 0.1s;
+        }
+
+        .pricing-card:nth-child(3) {
+            animation-delay: 0.2s;
+        }
+
+        @keyframes slideInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+
+
+{{--
   <div class="fun-facts">
     <div class="container">
       <div class="row">
@@ -159,7 +489,7 @@ $pageTitle ="Immo | Acceuil";
         </div>
       </div>
     </div>
-  </div>
+  </div> --}}
 
   <div class="section best-deal">
     <div class="container">
@@ -282,12 +612,28 @@ $pageTitle ="Immo | Acceuil";
         </div>
       </div>
       <div class="row">
+        @foreach ($properties as $property )
+
+
         <div class="col-lg-4 col-md-6">
           <div class="item">
-            <a href="property-details.html"><img src="assets/images/property-01.jpg" alt=""></a>
-            <span class="category">Luxury Villa</span>
-            <h6>$2.264.000</h6>
-            <h4><a href="property-details.html">18 New Street Miami, OR 97219</a></h4>
+  @if($property->images->count() > 0)
+                  <img src="{{ Storage::url($property->images->first()->image_path) }}"
+                       alt="{{ $property->title }}"
+                       style="width: 100%; height: 200px; object-fit: cover;">
+                  @if($property->images->count() > 1)
+                    <div class="image-count-badge">
+                      <i class="fa fa-images"></i> {{ $property->images->count() }}
+                    </div>
+                  @endif
+                @else
+                  <div class="no-image-placeholder" style="height: 200px; background: #f8f9fa; display: flex; align-items: center; justify-content: center;">
+                    <i class="fa fa-home fa-2x text-muted"></i>
+                  </div>
+                @endif
+            <span class="category">{{ $property->title }}</span>
+            <h6>{{ $property->price }}</h6>
+            <h4><a href="property-details.html">{{ $property->address.','.$property->city }}</a></h4>
             <ul>
               <li>Bedrooms: <span>8</span></li>
               <li>Bathrooms: <span>8</span></li>
@@ -300,43 +646,8 @@ $pageTitle ="Immo | Acceuil";
             </div>
           </div>
         </div>
-        <div class="col-lg-4 col-md-6">
-          <div class="item">
-            <a href="property-details.html"><img src="assets/images/property-02.jpg" alt=""></a>
-            <span class="category">Luxury Villa</span>
-            <h6>$1.180.000</h6>
-            <h4><a href="property-details.html">54 Mid Street Florida, OR 27001</a></h4>
-            <ul>
-              <li>Bedrooms: <span>6</span></li>
-              <li>Bathrooms: <span>5</span></li>
-              <li>Area: <span>450m2</span></li>
-              <li>Floor: <span>3</span></li>
-              <li>Parking: <span>8 spots</span></li>
-            </ul>
-            <div class="main-button">
-              <a href="property-details.html">Schedule a visit</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-4 col-md-6">
-          <div class="item">
-            <a href="property-details.html"><img src="assets/images/property-03.jpg" alt=""></a>
-            <span class="category">Luxury Villa</span>
-            <h6>$1.460.000</h6>
-            <h4><a href="property-details.html">26 Old Street Miami, OR 38540</a></h4>
-            <ul>
-              <li>Bedrooms: <span>5</span></li>
-              <li>Bathrooms: <span>4</span></li>
-              <li>Area: <span>225m2</span></li>
-              <li>Floor: <span>3</span></li>
-              <li>Parking: <span>10 spots</span></li>
-            </ul>
-            <div class="main-button">
-              <a href="property-details.html">Schedule a visit</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-4 col-md-6">
+@endforeach
+        {{-- <div class="col-lg-4 col-md-6">
           <div class="item">
             <a href="property-details.html"><img src="assets/images/property-04.jpg" alt=""></a>
             <span class="category">Apartment</span>
@@ -389,10 +700,185 @@ $pageTitle ="Immo | Acceuil";
               <a href="property-details.html">Schedule a visit</a>
             </div>
           </div>
-        </div>
+        </div> --}}
       </div>
     </div>
   </div>
+
+   {{-- Abonnement --}}
+      <div class="section">
+        <div class="container">
+            <div class="section-heading">
+                <h6 id="Abonnement">| Nos Plans</h6>
+                <h2>Choisissez le Plan Qui Vous Convient</h2>
+            </div>
+
+            <div class="pricing-cards">
+                <!-- Plan Gratuit -->
+                <div class="pricing-card free">
+                    <div class="plan-header">
+                        <div class="plan-icon">
+                            <i class="fas fa-home"></i>
+                        </div>
+                        <h3 class="plan-name">Gratuit</h3>
+                        <p class="plan-description">Parfait pour découvrir nos services et explorer le marché immobilier</p>
+                    </div>
+
+                    <div class="plan-price">
+                        <div class="price">
+                           0 <span class="price-currency">Ar</span>
+                        </div>
+                        <div class="price-period">par mois</div>
+                    </div>
+
+                    <ul class="features-list">
+                        <li>
+                            <span class="feature-icon">
+                                <i class="fas fa-check"></i>
+                            </span>
+                            Accès aux annonces publiques
+                        </li>
+                        <li>
+                            <span class="feature-icon">
+                                <i class="fas fa-check"></i>
+                            </span>
+                            Newsletter hebdomadaire
+                        </li>
+                        <li>
+                            <span class="feature-icon">
+                                <i class="fas fa-check"></i>
+                            </span>
+                            5 contacts par mois
+                        </li>
+                        <li>
+                            <span class="feature-icon disabled">
+                                <i class="fas fa-times"></i>
+                            </span>
+                            Support prioritaire
+                        </li>
+                        <li>
+                            <span class="feature-icon disabled">
+                                <i class="fas fa-times"></i>
+                            </span>
+                            Annonces exclusives
+                        </li>
+                    </ul>
+
+                    <a href="#" class="plan-button">Commencer Gratuitement</a>
+                </div>
+
+                <!-- Plan Silver -->
+                <div class="pricing-card silver">
+                    <div class="popular-badge">Populaire</div>
+
+                    <div class="plan-header">
+                        <div class="plan-icon">
+                            <i class="fas fa-building"></i>
+                        </div>
+                        <h3 class="plan-name">Silver</h3>
+                        <p class="plan-description">Idéal pour les investisseurs sérieux qui veulent accéder à plus d'opportunités</p>
+                    </div>
+
+                    <div class="plan-price">
+                        <div class="price">
+                           39 000 <span class="price-currency">Ar</span>
+                        </div>
+                        <div class="price-period">par mois</div>
+                    </div>
+
+                    <ul class="features-list">
+                        <li>
+                            <span class="feature-icon">
+                                <i class="fas fa-check"></i>
+                            </span>
+                            Tout du plan Gratuit
+                        </li>
+                        <li>
+                            <span class="feature-icon">
+                                <i class="fas fa-check"></i>
+                            </span>
+                            50 contacts par mois
+                        </li>
+                        <li>
+                            <span class="feature-icon">
+                                <i class="fas fa-check"></i>
+                            </span>
+                            Alertes personnalisées
+                        </li>
+                        <li>
+                            <span class="feature-icon">
+                                <i class="fas fa-check"></i>
+                            </span>
+                            Support prioritaire
+                        </li>
+                        <li>
+                            <span class="feature-icon disabled">
+                                <i class="fas fa-times"></i>
+                            </span>
+                            Conseiller personnel
+                        </li>
+                    </ul>
+
+                    <a href="#" class="plan-button">Choisir Silver</a>
+                </div>
+
+                <!-- Plan Gold -->
+                <div class="pricing-card gold">
+                    <div class="recommended-badge">Recommandé</div>
+
+                    <div class="plan-header">
+                        <div class="plan-icon">
+                            <i class="fas fa-crown"></i>
+                        </div>
+                        <h3 class="plan-name">Gold</h3>
+                        <p class="plan-description">Pour les professionnels qui veulent un accès complet et un service premium</p>
+                    </div>
+
+                    <div class="plan-price">
+                        <div class="price">
+                           79 000 <span class="price-currency">Ar</span>
+                        </div>
+                        <div class="price-period">par mois</div>
+                    </div>
+
+                    <ul class="features-list">
+                        <li>
+                            <span class="feature-icon">
+                                <i class="fas fa-check"></i>
+                            </span>
+                            Tout du plan Silver
+                        </li>
+                        <li>
+                            <span class="feature-icon">
+                                <i class="fas fa-check"></i>
+                            </span>
+                            Contacts illimités
+                        </li>
+                        <li>
+                            <span class="feature-icon">
+                                <i class="fas fa-check"></i>
+                            </span>
+                            Annonces exclusives 24h avant
+                        </li>
+                        <li>
+                            <span class="feature-icon">
+                                <i class="fas fa-check"></i>
+                            </span>
+                            Conseiller personnel dédié
+                        </li>
+                        <li>
+                            <span class="feature-icon">
+                                <i class="fas fa-check"></i>
+                            </span>
+                            Analyses de marché privées
+                        </li>
+                    </ul>
+
+                    <a href="#" class="plan-button">Choisir Gold</a>
+                </div>
+            </div>
+        </div>
+    </div>
 
   <div class="contact section">
     <div class="container">
@@ -467,5 +953,62 @@ $pageTitle ="Immo | Acceuil";
       </div>
     </div>
   </div>
+<script>
+        // Animation au scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
 
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationPlayState = 'running';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.pricing-card').forEach(card => {
+            card.style.animationPlayState = 'paused';
+            observer.observe(card);
+        });
+
+        // Gestion des clics sur les boutons
+        document.querySelectorAll('.plan-button').forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+
+                const card = this.closest('.pricing-card');
+                const planName = card.querySelector('.plan-name').textContent;
+
+                // Animation du bouton
+                const originalText = this.textContent;
+                this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Traitement...';
+                this.disabled = true;
+
+                setTimeout(() => {
+                    this.innerHTML = '<i class="fas fa-check"></i> Plan sélectionné !';
+
+                    setTimeout(() => {
+                        this.innerHTML = originalText;
+                        this.disabled = false;
+
+                        // Ici vous pouvez ajouter votre logique de redirection ou d'ouverture de modal
+                        console.log(`Plan ${planName} sélectionné`);
+                    }, 2000);
+                }, 1500);
+            });
+        });
+
+        // Effet de survol amélioré
+        document.querySelectorAll('.pricing-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.zIndex = '10';
+            });
+
+            card.addEventListener('mouseleave', function() {
+                this.style.zIndex = '1';
+            });
+        });
+    </script>
   @endsection

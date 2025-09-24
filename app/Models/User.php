@@ -33,6 +33,7 @@ class User extends Authenticatable
         'remember_token',
     ];
 
+
     /**
      * The attributes that should be cast.
      *
@@ -42,6 +43,43 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function subscriptions()
+    {
+        return $this->hasMany(Subscription::class);
+    }
+
+    public function  activeSubscription()
+    {
+        return $this->hasOne(Subscription::class)->active()->latest();
+    }
+
+    // public function isAgency(): bool
+    // {
+    //     return $this->role === 'agency';
+    // }
+
+    // public function isVisitor(): bool
+    // {
+    //     return $this->role === 'visitor';
+    // }
+
+    // public function hasActiveSubscription(): bool
+    // {
+    //     return $this->activeSubscription()->exists();
+    // }
+
+    // public function getSubscriptionType(): ?string
+    // {
+    //     $subscription = $this->activeSubscription;
+    //     return $subscription ? $subscription->type : null;
+    // }
+
+    // public function promoteToAgency(): void
+    // {
+    //     $this->update(['role' => 'agency']);
+    // }
+
 
     public function properties()
     {

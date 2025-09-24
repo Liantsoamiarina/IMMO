@@ -229,60 +229,7 @@
 
   <!-- Styles CSS -->
   <style>
-    .topbar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1rem 2rem;
-      background: #fff;
-      border-bottom: 1px solid #e9ecef;
-      margin-bottom: 1rem;
-    }
 
-    .page-title {
-      font-size: 1.25rem;
-      font-weight: 600;
-      color: #495057;
-    }
-
-    .toggle-icon {
-      width: 24px;
-      height: 24px;
-      fill: #6c757d;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-
-    .toggle-icon:hover {
-      fill: #495057;
-      transform: rotate(15deg);
-    }
-
-    .avatar {
-      width: 40px;
-      height: 40px;
-      background: #6c757d;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      font-weight: 600;
-    }
-
-    #filtre1 {
-      background: linear-gradient(45deg, #007bff, #0056b3);
-      border: none;
-    }
-
-    #filtre1.active {
-      background: linear-gradient(45deg, #0056b3, #003d82);
-    }
-
-    #filtre2 {
-      background: linear-gradient(45deg, #28a745, #1e7e34);
-      border: none;
-    }
 
     .property-card {
       background: #fff;

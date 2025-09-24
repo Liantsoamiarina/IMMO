@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    {{-- <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet"> --}}
+
     <link rel="shortcut icon" href="{{ asset("assets/images/Logo/favicon.ico") }}" type="image/x-icon">
     <title>{{$pageTitle ?? "Immobilier" }}</title>
     <link rel="stylesheet" href="{{ asset("assets/css/fontawesome.css") }}">
@@ -40,8 +40,8 @@
       <div class="row">
         <div class="col-lg-8 col-md-8">
           <ul class="info">
-            <li><i class="fa fa-envelope"></i> Immo261@gmail.com</li>
-            <li><i class="fa fa-map"></i> Sunny Isles Beach, FL 33160</li>
+            <li><i class="fa fa-envelope"></i> emmotsoa261@gmail.com</li>
+            {{-- <li><i class="fa fa-map"></i> Sunny Isles Beach, FL 33160</li> --}}
           </ul>
         </div>
         <div class="col-lg-4 col-md-4">
@@ -69,12 +69,15 @@
                     </a>
 
                     <ul class="nav">
-                      <li><a href="{{ route("homepage") }}" class="{{ Route::is("homepage") ? 'active' : '' }}">Home</a></li>
-                      <li><a href="{{ route("propertie") }}" class="{{ Route::is("properties") ? 'active ' : '' }}">Properties</a></li>
+                      <li><a href="{{ route("homepage") }}" class="{{ Route::is("homepage") ? 'active' : '' }}">Accueil</a></li>
+                      <li><a href="{{ route("homepropertie") }}" class="{{ Route::is("homeproperties") ? 'active ' : '' }}">Propriétés</a></li>
                       <li><a href="{{ route("details") }}" class="{{ Route::is("details") ? 'active':'' }}">Property Details</a></li>
                       <li><a href="{{ route("Rent") }}" class="{{ Route::is("Rent") ? 'active':'' }}">Rent Details</a></li>
                         <li>
-                        <a href="{{ route("contact") }}" class="{{ Route::is("contact") ? 'active' : '' }}">Contact Us</a></li>
+                        <a href="#Abonnement" class="">Abonnement </a></li>
+                        <li>
+                        <li>
+                        <a href="{{ route("contact") }}" class="{{ Route::is("contact") ? 'active' : '' }}">Contact </a></li>
                         <li>
                             @if(Auth::check())
     {{-- popup Notyf --}}
@@ -99,7 +102,7 @@
     </form>
 
     {{-- SweetAlert2 --}}
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="{{ asset("assets/js/sweetalert2@11.js") }}"></script>
     <script>
         document.getElementById('logout-btn').addEventListener('click', function(e) {
             e.preventDefault();
@@ -127,7 +130,7 @@
     </a>
 @endif
 
-                      <li><a href="#"><i class="fa fa-calendar"></i> Schedule a visit</a></li>
+                      {{-- <li><a href="#"><i class="fa fa-calendar"></i> Schedule a visit</a></li> --}}
                   </ul>
                     <a class='menu-trigger'>
                         <span>Menu</span>

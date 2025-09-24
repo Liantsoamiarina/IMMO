@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admincontroller;
+use App\Http\Controllers\OwnerController;
 use App\Http\Controllers\PropertyController;
 
 
@@ -20,9 +21,9 @@ use App\Http\Controllers\PropertyController;
 |
 */
 
-Route::get('/',[HomeController::class,"index"])->name("homepage");
+Route::get('/',[PropertyController::class,"index"])->name("homepage");
 Route::get('/contact',[HomeController::class,"contact"])->name("contact");
-Route::get('/propertie',[HomeController::class,"propertie"])->name("propertie");
+Route::get('/homepropertie',[HomeController::class,"propertie"])->name("homepropertie");
 Route::get('/details',[HomeController::class,"details"])->name("details");
 Route::get('/Rent',[HomeController::class,"RentDetails"])->name("Rent");
 
@@ -42,12 +43,13 @@ Route::get('/current-time', function () {
 
 
 # Client
-Route::get('/register', [AuthController::class, 'showRegister'])->name('register.form');
+Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
 Route::post('/register', [AuthController::class, 'register'])->name('register');
 
 # Owner
-Route::get('/register-owner', [AuthController::class, 'showRegisterOwner'])->name('register.owner.form');
-Route::post('/register-owner', [AuthController::class, 'registerOwner'])->name('register.owner');
+Route::get('/home-agence', [OwnerController::class, 'Agence'])->name('home.agence');
+// Route::get('/register-owner', [AuthController::class, 'showRegisterOwner'])->name('register.owner.form');
+// Route::post('/register-owner', [AuthController::class, 'registerOwner'])->name('register.owner');
 
 # Auth commun
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login.form');
@@ -61,7 +63,7 @@ Route::middleware('auth')->get('/dashboard', function () {
     if ($user->role === 'admin') {
         return view('admin.dashboard');
     } elseif ($user->role === 'owner') {
-        return view('dashboard.owner');
+        return view('agence.agence');
     } else {
         return view('home'); // client va à la page d'accueil
     }
@@ -71,5 +73,7 @@ Route::middleware('auth')->get('/dashboard', function () {
 Route::middleware('auth')
     ->get('/createproperty', [PropertyController::class, 'Cproperty'])
     ->name('createproperty');
+//agence
+Route::get('/agenceproperty',[PropertyController::class,'Agenceproperty'])->name('Cproperty.agence');
 
 

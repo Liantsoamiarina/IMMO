@@ -78,7 +78,7 @@ public function login(Request $request)
         if ($user->role === 'admin') {
             return redirect()->route('dashboard');
         } elseif ($user->role === 'owner') {
-            return redirect()->route('dashboard');
+            return redirect()->route('home.agence');
         } else {
             return redirect('/');
         }
