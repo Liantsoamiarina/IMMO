@@ -21,4 +21,7 @@ class HomeController extends Controller
     public function Rentdetails(){
         return view("RentDetails");
     }
+    public function Abonnement(){
+        return view("abonnement");
+    }
 }

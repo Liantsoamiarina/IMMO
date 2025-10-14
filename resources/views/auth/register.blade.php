@@ -31,11 +31,11 @@
                 <!-- Carte d'inscription -->
                 <div class="card border-0 shadow-lg" style="backdrop-filter: blur(10px); background: rgba(255, 255, 255, 0.95);">
                     <!-- En-tête -->
-                    <div class="card-header border-0 text-center py-4" style="background: linear-gradient(135deg, #4299e1 0%, #667eea 100%);">
+                    <div class="card-header border-0 text-center py-4" style="background: linear-gradient(135deg, #2c3e50 0%, #1a1a1a 100%);;">
                         <div class="mb-3">
                             <div class="bg-white rounded-circle d-inline-flex align-items-center justify-content-center"
-                                 style="width: 60px; height: 60px;">
-                                <i class="fas fa-user-plus text-primary fs-3"></i>
+                                 style="width: 60px; height: 60px;background: linear-gradient(135deg, #ff6b35, #f7931e);">
+                                <i class="fas fa-user-plus fs-3" ></i>
                             </div>
                         </div>
                         <h4 class="text-white mb-0 fw-light">Inscription Client</h4>
@@ -175,7 +175,9 @@
                             <button type="submit"
                                     class="btn btn-lg w-100 text-white fw-semibold"
                                     id="registerBtn"
-                                    style="background: linear-gradient(135deg, #4299e1 0%, #667eea 100%); border-radius: 10px; border: none; transition: all 0.3s ease;">
+                                     style="background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+                                           border-radius: 15px; border: none; transition: all 0.3s ease;
+                                           transform: perspective(1px) translateZ(0);">
                                 <span id="registerText">
                                     <i class="fas fa-user-plus me-2"></i>Créer mon compte
                                 </span>

@@ -416,11 +416,15 @@ Header Style
 }
 /* logo navbar */
 .header-area .main-nav .logo img{
-    height: 68px;
+    height: 95px;
     width: auto;
     object-fit: contain;
 }
-.header-area .main-nav .logo h1 {
+.header-sticky .logo {
+  margin-top: -10px;  /* <= C’est ça qui décale ton logo */
+  margin-left: -117px;
+}
+/* .header-area .main-nav .logo h1 {
   line-height: 100px;
   font-size: 56px;
   margin-top: -8px;
@@ -433,7 +437,7 @@ Header Style
 
 .background-header .main-nav .logo h1 {
   line-height: 98px;
-}
+} */
 
 .header-area .main-nav ul.nav {
   flex-basis: 100%;

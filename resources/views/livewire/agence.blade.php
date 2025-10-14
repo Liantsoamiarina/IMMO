@@ -9,7 +9,7 @@
 
 <!-- Bootstrap 5 CDN -->
 <link rel="stylesheet" href="{{ asset("assets/bootstrap/css/bootstrap.min.css") }}">
-
+<link rel="stylesheet" href="{{ asset("assets/css/sweetalert2.min.css") }}">
 <!-- FontAwesome CDN -->
 <link rel="stylesheet" href="{{ asset("assets/fontawesome/css/all.min.css") }}">
    {{-- popup login --}}
@@ -573,7 +573,7 @@ html { scroll-behavior: smooth; }
 <nav class="navbar navbar-expand-lg fixed-top">
   <div class="container d-flex">
  <a href="/" class="navbar-brand logo ">
-     <img src="{{ asset("assets/images/Logo/image.png") }}" alt="logo"">
+     <img src="{{ asset("assets/images/Logo/MMO.jpg") }}" alt="logo"">
 
  </a>
 
@@ -1179,170 +1179,10 @@ html { scroll-behavior: smooth; }
   </div>
 </section>
 
-{{-- <!-- Modal Création -->
-<div class="modal fade" id="createPropertyModal" tabindex="-1" aria-hidden="true" wire:ignore.self>
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">
-          <i class="fas fa-plus me-2"></i> Publier un nouveau bien
-        </h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
 
-      <div class="modal-body">
-        <form wire:submit.prevent="save">
-          <!-- Message d'erreurs globales -->
-          @if ($errors->any())
-            <div class="alert alert-danger">
-              <ul class="mb-0">
-                @foreach ($errors->all() as $error)
-                  <li>{{ $error }}</li>
-                @endforeach
-              </ul>
-            </div>
-          @endif
-
-          <!-- Titre -->
-          <div class="mb-3">
-            <label class="form-label">
-              <i class="fas fa-heading me-1 text-primary"></i> Titre du bien <span class="text-danger">*</span>
-            </label>
-            <input type="text" class="form-control @error('title') is-invalid @enderror"
-                   placeholder="Ex: Villa luxueuse avec vue mer"
-                   wire:model.defer="title" required>
-            @error('title') <div class="invalid-feedback">{{ $message }}</div> @enderror
-          </div>
-
-          <!-- Prix -->
-          <div class="mb-3">
-            <label class="form-label">
-              <i class="fas fa-dollar-sign me-1 text-success"></i> Prix ($) <span class="text-danger">*</span>
-            </label>
-            <input type="number" class="form-control @error('price') is-invalid @enderror"
-                   placeholder="450000"
-                   wire:model.defer="price" required>
-            @error('price') <div class="invalid-feedback">{{ $message }}</div> @enderror
-          </div>
-
-          <!-- Description -->
-          <div class="mb-3">
-            <label class="form-label">
-              <i class="fas fa-align-left me-1 text-info"></i> Description
-            </label>
-            <textarea class="form-control @error('description') is-invalid @enderror" rows="4"
-                      placeholder="Décrivez votre propriété..."
-                      wire:model.defer="description"></textarea>
-            @error('description') <div class="invalid-feedback">{{ $message }}</div> @enderror
-          </div>
-
-          <!-- Type & Transaction -->
-          <div class="row">
-            <div class="col-md-6 mb-3">
-              <label class="form-label"><i class="fas fa-home me-1 text-warning"></i> Type</label>
-              <select class="form-select @error('type') is-invalid @enderror" wire:model="type">
-                <option value="appartement">Appartement</option>
-                <option value="maison">Maison</option>
-                <option value="terrain">Terrain</option>
-              </select>
-              @error('type') <div class="invalid-feedback">{{ $message }}</div> @enderror
-            </div>
-            <div class="col-md-6 mb-3">
-              <label class="form-label"><i class="fas fa-exchange-alt me-1 text-secondary"></i> Transaction</label>
-              <select class="form-select @error('transaction_type') is-invalid @enderror" wire:model="transaction_type">
-                <option value="vente">Vente</option>
-                <option value="location">Location</option>
-              </select>
-              @error('transaction_type') <div class="invalid-feedback">{{ $message }}</div> @enderror
-            </div>
-          </div>
-
-          <!-- Détails techniques -->
-          <div class="row" @if($type === 'terrain') style="display:none;" @endif>
-            <div class="col-md-4 mb-3">
-              <label class="form-label"><i class="fas fa-ruler-combined me-1 text-muted"></i> Surface (m²)</label>
-              <input type="number" class="form-control @error('surface') is-invalid @enderror"
-                     wire:model.defer="surface" min="0">
-              @error('surface') <div class="invalid-feedback">{{ $message }}</div> @enderror
-            </div>
-            <div class="col-md-4 mb-3">
-              <label class="form-label"><i class="fas fa-door-open me-1 text-muted"></i> Pièces</label>
-              <input type="number" class="form-control @error('rooms') is-invalid @enderror"
-                     wire:model.defer="rooms" min="0">
-              @error('rooms') <div class="invalid-feedback">{{ $message }}</div> @enderror
-            </div>
-            <div class="col-md-4 mb-3">
-              <label class="form-label"><i class="fas fa-layer-group me-1 text-muted"></i> Étages</label>
-              <input type="number" class="form-control @error('floors') is-invalid @enderror"
-                     wire:model.defer="floors" min="0">
-              @error('floors') <div class="invalid-feedback">{{ $message }}</div> @enderror
-            </div>
-          </div>
-
-          <!-- Parking -->
-          <div class="form-check form-switch mb-3" @if($type === 'terrain') style="display:none;" @endif>
-            <input class="form-check-input" type="checkbox" role="switch" id="parkingSwitch" wire:model="parking">
-            <label class="form-check-label" for="parkingSwitch"><i class="fas fa-parking me-1 text-primary"></i> Parking disponible</label>
-          </div>
-
-          <!-- Adresse -->
-          <div class="mb-3">
-            <label class="form-label"><i class="fas fa-map-marker-alt me-1 text-danger"></i> Adresse</label>
-            <input type="text" class="form-control @error('address') is-invalid @enderror" wire:model.defer="address">
-            @error('address') <div class="invalid-feedback">{{ $message }}</div> @enderror
-          </div>
-
-          <div class="row">
-            <div class="col-md-6 mb-3">
-              <label class="form-label"><i class="fas fa-city me-1 text-secondary"></i> Ville</label>
-              <input type="text" class="form-control @error('city') is-invalid @enderror" wire:model.defer="city">
-              @error('city') <div class="invalid-feedback">{{ $message }}</div> @enderror
-            </div>
-            <div class="col-md-6 mb-3">
-              <label class="form-label"><i class="fas fa-flag me-1 text-dark"></i> Pays</label>
-              <input type="text" class="form-control @error('country') is-invalid @enderror" wire:model.defer="country">
-              @error('country') <div class="invalid-feedback">{{ $message }}</div> @enderror
-            </div>
-          </div>
-
-          <!-- Images -->
-          <div class="mb-3">
-            <label class="form-label"><i class="fas fa-images me-1 text-success"></i> Images (max {{ $maxFiles }})</label>
-            <input type="file" class="form-control @error('images.*') is-invalid @enderror"
-                   wire:model="images" multiple accept="image/*">
-            @error('images.*') <div class="invalid-feedback">{{ $message }}</div> @enderror
-
-            <!-- Preview -->
-            @if($images)
-              <div class="mt-2 d-flex flex-wrap gap-2">
-                @foreach($images as $index => $img)
-                  <div class="position-relative">
-                    <img src="{{ $img->temporaryUrl() }}" class="img-thumbnail rounded shadow" width="100" height="100" style="object-fit: cover;">
-                    <button type="button" class="btn btn-sm btn-danger position-absolute top-0 end-0 rounded-circle"
-                            wire:click="removeTempImage({{ $index }})" style="width: 20px; height: 20px; padding: 0; font-size: 12px;">
-                      <i class="fas fa-times"></i>
-                    </button>
-                  </div>
-                @endforeach
-              </div>
-            @endif
-          </div>
-
-          <!-- Bouton submit -->
-          <button type="submit" class="btn btn-success w-100" wire:loading.attr="disabled" wire:target="save">
-            <span wire:loading.remove wire:target="save">
-              <i class="fas fa-upload me-2"></i> Publier la propriété
-            </span>
-            <span wire:loading wire:target="save">
-              <i class="fas fa-spinner fa-spin me-2"></i> Publication en cours...
-            </span>
-          </button>
-        </form>
-      </div>
-    </div>
-  </div>
-</div> --}}
-
+<div class="alert alert-info">
+    DEBUG: User {{ Auth::id() }} a {{ $properties->count() }} propriétés
+</div>
 
 <!-- Modal Edit -->
 <div class="modal fade" id="editPropertyModal" tabindex="-1" aria-hidden="true" wire:ignore.self>
@@ -1406,7 +1246,7 @@ html { scroll-behavior: smooth; }
   </div>
 </div>
 
-<!-- Modal Delete -->
+{{-- <!-- Modal Delete -->
 <div class="modal fade" id="deletePropertyModal" tabindex="-1" aria-hidden="true" wire:ignore.self>
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
@@ -1437,7 +1277,7 @@ html { scroll-behavior: smooth; }
       </div>
     </div>
   </div>
-</div>
+</div> --}}
 
 <!-- Modal Quick View -->
 <div class="modal fade" id="quickViewModal" tabindex="-1" aria-hidden="true">
@@ -1569,6 +1409,7 @@ document.addEventListener('DOMContentLoaded', function() {
 @endscript
 
 <!-- Bootstrap Bundle JS -->
+<script src="{{ asset("assets/js/sweetalert2@11.js") }}"></script>
 <script src="{{ asset("assets/bootstrap/js/bootstrap.bundle.min.js") }}"></script>
 <script src="{{ asset("assets/js/all.min.js") }}"></script>
 <script src="{{ asset("assets/notyf/notyf.min.js") }}"></script>
@@ -1647,9 +1488,187 @@ window.addEventListener('scroll', function() {
 //     e.preventDefault();
 //     alert('Fonctionnalité à implémenter !');
 //   });
-});
 </script>
+@script
+<script>
+    // SweetAlert pour la suppression
+    $wire.on('confirm-delete', (event) => {
+        Swal.fire({
+            title: 'Êtes-vous sûr ?',
+            html: `Voulez-vous vraiment supprimer <strong>"${event.title}"</strong> ?<br><small>Cette action est irréversible.</small>`,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#dc3545',
+            cancelButtonColor: '#6c757d',
+            confirmButtonText: '<i class="fas fa-trash me-2"></i>Oui, supprimer',
+            cancelButtonText: '<i class="fas fa-times me-2"></i>Annuler',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $wire.call('delete', event.id);
+            }
+        });
+    });
 
+    // SweetAlert pour la modification
+    $wire.on('open-edit-modal', async (event) => {
+        const property = event.property;
+
+        const { value: formValues } = await Swal.fire({
+            title: '<i class="fas fa-edit me-2"></i>Modifier la propriété',
+            html: `
+                <div class="text-start">
+                    <div class="mb-3">
+                        <label class="form-label">Titre <span class="text-danger">*</span></label>
+                        <input id="swal-title" class="swal2-input" value="${property.title}" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Prix ($) <span class="text-danger">*</span></label>
+                        <input id="swal-price" type="number" class="swal2-input" value="${property.price}" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Description</label>
+                        <textarea id="swal-description" class="swal2-textarea" rows="3">${property.description || ''}</textarea>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-6 mb-3">
+                            <label class="form-label">Type</label>
+                            <select id="swal-type" class="swal2-select">
+                                <option value="appartement" ${property.type === 'appartement' ? 'selected' : ''}>Appartement</option>
+                                <option value="maison" ${property.type === 'maison' ? 'selected' : ''}>Maison</option>
+                                <option value="terrain" ${property.type === 'terrain' ? 'selected' : ''}>Terrain</option>
+                            </select>
+                        </div>
+                        <div class="col-6 mb-3">
+                            <label class="form-label">Transaction</label>
+                            <select id="swal-transaction" class="swal2-select">
+                                <option value="vente" ${property.transaction_type === 'vente' ? 'selected' : ''}>Vente</option>
+                                <option value="location" ${property.transaction_type === 'location' ? 'selected' : ''}>Location</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-4 mb-3">
+                            <label class="form-label">Surface (m²)</label>
+                            <input id="swal-surface" type="number" class="swal2-input" value="${property.surface || ''}" placeholder="Surface">
+                        </div>
+                        <div class="col-4 mb-3">
+                            <label class="form-label">Pièces</label>
+                            <input id="swal-rooms" type="number" class="swal2-input" value="${property.rooms || ''}" placeholder="Pièces">
+                        </div>
+                        <div class="col-4 mb-3">
+                            <label class="form-label">Étages</label>
+                            <input id="swal-floors" type="number" class="swal2-input" value="${property.floors || ''}" placeholder="Étages">
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Adresse</label>
+                        <input id="swal-address" class="swal2-input" value="${property.address || ''}" placeholder="Adresse">
+                    </div>
+
+                    <div class="row">
+                        <div class="col-6 mb-3">
+                            <label class="form-label">Ville</label>
+                            <input id="swal-city" class="swal2-input" value="${property.city || ''}" placeholder="Ville">
+                        </div>
+                        <div class="col-6 mb-3">
+                            <label class="form-label">Pays</label>
+                            <input id="swal-country" class="swal2-input" value="${property.country || ''}" placeholder="Pays">
+                        </div>
+                    </div>
+
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="swal-parking" ${property.parking ? 'checked' : ''}>
+                        <label class="form-check-label" for="swal-parking">
+                            Parking disponible
+                        </label>
+                    </div>
+                </div>
+            `,
+            width: '800px',
+            showCancelButton: true,
+            confirmButtonText: '<i class="fas fa-save me-2"></i>Enregistrer',
+            cancelButtonText: '<i class="fas fa-times me-2"></i>Annuler',
+            confirmButtonColor: '#28a745',
+            cancelButtonColor: '#6c757d',
+            reverseButtons: true,
+            customClass: {
+                popup: 'swal-wide',
+                htmlContainer: 'text-start'
+            },
+            preConfirm: () => {
+                return {
+                    title: document.getElementById('swal-title').value,
+                    price: document.getElementById('swal-price').value,
+                    description: document.getElementById('swal-description').value,
+                    type: document.getElementById('swal-type').value,
+                    transaction_type: document.getElementById('swal-transaction').value,
+                    surface: document.getElementById('swal-surface').value,
+                    rooms: document.getElementById('swal-rooms').value,
+                    floors: document.getElementById('swal-floors').value,
+                    address: document.getElementById('swal-address').value,
+                    city: document.getElementById('swal-city').value,
+                    country: document.getElementById('swal-country').value,
+                    parking: document.getElementById('swal-parking').checked
+                }
+            }
+        });
+
+        if (formValues) {
+            // Mettre à jour les propriétés Livewire
+            $wire.set('title', formValues.title);
+            $wire.set('price', formValues.price);
+            $wire.set('description', formValues.description);
+            $wire.set('type', formValues.type);
+            $wire.set('transaction_type', formValues.transaction_type);
+            $wire.set('surface', formValues.surface);
+            $wire.set('rooms', formValues.rooms);
+            $wire.set('floors', formValues.floors);
+            $wire.set('address', formValues.address);
+            $wire.set('city', formValues.city);
+            $wire.set('country', formValues.country);
+            $wire.set('parking', formValues.parking);
+
+            // Appeler la méthode update
+            $wire.call('update');
+        }
+    });
+
+    // Toast notifications
+    $wire.on('show-toast', (event) => {
+        const notyf = new Notyf({
+            duration: 5000,
+            position: { x: 'right', y: 'top' },
+            dismissible: true
+        });
+
+        if (event.type === 'success') {
+            notyf.success(event.message);
+        } else {
+            notyf.error(event.message);
+        }
+    });
+</script>
+@endscript
+
+<style>
+    .swal-wide {
+        max-width: 800px !important;
+    }
+    .swal2-html-container {
+        overflow: visible !important;
+    }
+    .swal2-input, .swal2-textarea, .swal2-select {
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 0.5rem !important;
+    }
+</style>
 </body>
 </html>
 

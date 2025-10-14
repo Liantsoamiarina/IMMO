@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Activation de votre compte</title>
+    <title>Votre abonnement a été activé !</title>
     <style>
         * {
             margin: 0;
@@ -15,34 +15,54 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
             color: #333;
-            background-color: #f8f9fa;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
         }
 
         .email-container {
-            max-width: 600px;
-            margin: 20px auto;
+            max-width: 650px;
+            margin: 30px auto;
             background: white;
-            border-radius: 12px;
+            border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
         }
 
         .header {
-            background: linear-gradient(135deg, #C0C0C0 0%, #FFD700 100%);
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
             color: white;
-            padding: 40px 30px;
+            padding: 50px 40px;
             text-align: center;
             position: relative;
+            overflow: hidden;
         }
 
         .header::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 20"><defs><radialGradient id="a" cx="50%" cy="0%" r="100%"><stop offset="0%" style="stop-color:white;stop-opacity:0.1"/><stop offset="100%" style="stop-color:white;stop-opacity:0"/></radialGradient></defs><rect width="100" height="20" fill="url(%23a)"/></svg>');
+            top: -50%;
+            right: -20%;
+            width: 300px;
+            height: 300px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .header::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            left: -10%;
+            width: 200px;
+            height: 200px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 50%;
+            animation: float 8s ease-in-out infinite reverse;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
         }
 
         .header-content {
@@ -50,224 +70,311 @@
             z-index: 1;
         }
 
+        .header-icon {
+            width: 80px;
+            height: 80px;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+
         .header h1 {
-            font-size: 32px;
+            font-size: 34px;
             margin-bottom: 10px;
-            font-weight: 300;
+            font-weight: 700;
         }
 
         .header p {
             font-size: 18px;
             opacity: 0.95;
+            font-weight: 300;
         }
 
         .content {
-            padding: 40px 30px;
+            padding: 50px 40px;
         }
 
         .greeting {
-            font-size: 20px;
+            font-size: 24px;
             color: #2c3e50;
             margin-bottom: 25px;
-            font-weight: 500;
+            font-weight: 600;
         }
 
-        .activation-box {
-            background: linear-gradient(135deg, #e8f8ff 0%, #f0f8ff 100%);
-            border: 2px solid #007bff;
-            border-radius: 12px;
-            padding: 25px;
-            margin: 30px 0;
+        .intro-text {
+            font-size: 16px;
+            color: #6c757d;
+            margin-bottom: 35px;
+            line-height: 1.8;
+        }
+
+        .success-banner {
+            background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+            border: 2px solid #28a745;
+            border-radius: 16px;
+            padding: 30px;
+            margin: 35px 0;
             text-align: center;
+            position: relative;
+            overflow: hidden;
         }
 
-        .activation-icon {
-            width: 60px;
-            height: 60px;
-            background: #007bff;
+        .success-banner::before {
+            content: '✨';
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            font-size: 80px;
+            opacity: 0.1;
+        }
+
+        .success-icon {
+            width: 70px;
+            height: 70px;
+            background: #28a745;
             border-radius: 50%;
             display: inline-flex;
             align-items: center;
             justify-content: center;
             color: white;
+            font-size: 32px;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 25px rgba(40, 167, 69, 0.3);
+        }
+
+        .success-banner h3 {
+            color: #155724;
+            margin-bottom: 10px;
             font-size: 24px;
-            margin-bottom: 15px;
+            font-weight: 700;
         }
 
-        .activation-box h3 {
-            color: #0056b3;
-            margin-bottom: 15px;
-            font-size: 22px;
+        .success-banner p {
+            color: #155724;
+            font-size: 15px;
+            margin-bottom: 25px;
         }
 
-        .activation-btn {
-            display: inline-block;
-            padding: 18px 35px;
-            background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
-            color: white;
-            text-decoration: none;
-            border-radius: 30px;
-            font-weight: 600;
-            font-size: 16px;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
-            margin: 15px 0;
-        }
-
-        .activation-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(0, 123, 255, 0.4);
-        }
-
-        .plan-highlight {
-            background: {{ strtolower($subscriptionPlan) === 'silver' ? 'linear-gradient(135deg, #E5E5E5, #C0C0C0)' : 'linear-gradient(135deg, #FFE55C, #FFD700)' }};
-            padding: 25px;
-            border-radius: 12px;
-            margin: 30px 0;
+        .plan-card {
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+            border-radius: 20px;
+            padding: 40px;
+            margin: 40px 0;
             text-align: center;
-            color: #333;
+            color: white;
             position: relative;
+            box-shadow: 0 15px 45px rgba(255, 107, 53, 0.3);
         }
 
         .plan-badge {
-            font-size: 48px;
-            margin-bottom: 10px;
+            font-size: 56px;
+            margin-bottom: 15px;
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
         }
 
         .plan-name {
-            font-size: 28px;
-            font-weight: bold;
-            margin-bottom: 5px;
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
         }
 
         .plan-price {
-            font-size: 36px;
-            font-weight: bold;
-            margin-bottom: 10px;
+            font-size: 42px;
+            font-weight: 800;
+            margin-bottom: 8px;
         }
 
         .plan-period {
             font-size: 16px;
-            opacity: 0.8;
+            opacity: 0.9;
+            font-weight: 300;
         }
 
-        .subscription-details {
+        .details-section {
             background: #f8f9fa;
+            border-radius: 16px;
+            padding: 35px;
+            margin: 40px 0;
+        }
+
+        .details-title {
+            font-size: 20px;
+            color: #2c3e50;
+            margin-bottom: 25px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+        }
+
+        .details-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #ff6b35, #f7931e);
             border-radius: 10px;
-            padding: 25px;
-            margin: 30px 0;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            margin-right: 15px;
+            font-size: 18px;
         }
 
         .detail-row {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 15px;
-            padding-bottom: 12px;
-            border-bottom: 1px solid #e9ecef;
+            padding: 18px 0;
+            border-bottom: 2px solid #e9ecef;
         }
 
         .detail-row:last-child {
             border-bottom: none;
-            margin-bottom: 0;
         }
 
         .detail-label {
             font-weight: 600;
             color: #495057;
-            display: flex;
-            align-items: center;
-        }
-
-        .detail-icon {
-            margin-right: 8px;
-            font-size: 16px;
+            font-size: 15px;
         }
 
         .detail-value {
-            color: #6c757d;
-            font-weight: 500;
+            color: #ff6b35;
+            font-weight: 700;
+            font-size: 15px;
         }
 
         .features-section {
-            margin: 35px 0;
+            margin: 45px 0;
         }
 
         .features-title {
             font-size: 22px;
             color: #2c3e50;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             display: flex;
             align-items: center;
+            font-weight: 700;
         }
 
         .features-icon {
-            color: #ffc107;
-            margin-right: 10px;
-            font-size: 24px;
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #ffc107, #ff9800);
+            border-radius: 10px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            margin-right: 15px;
+            font-size: 18px;
         }
 
         .features-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 15px;
         }
 
         .feature-item {
             display: flex;
-            align-items: flex-start;
-            padding: 12px;
-            background: #f8f9fa;
-            border-radius: 8px;
-            border-left: 4px solid #28a745;
+            align-items: center;
+            padding: 18px;
+            background: white;
+            border-radius: 12px;
+            border: 2px solid #e9ecef;
+            transition: all 0.3s ease;
+        }
+
+        .feature-item:hover {
+            border-color: #ff6b35;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(255, 107, 53, 0.15);
         }
 
         .feature-check {
-            color: #28a745;
+            width: 28px;
+            height: 28px;
+            background: #28a745;
+            color: white;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
             font-weight: bold;
-            margin-right: 10px;
-            font-size: 16px;
-            margin-top: 2px;
+            margin-right: 15px;
+            font-size: 14px;
+            flex-shrink: 0;
         }
 
         .feature-text {
             color: #495057;
             font-size: 14px;
-            line-height: 1.4;
+            line-height: 1.5;
+            font-weight: 500;
         }
 
         .cta-section {
             text-align: center;
-            margin: 40px 0;
-            padding: 30px;
+            margin: 50px 0;
+            padding: 40px;
             background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-            border-radius: 12px;
+            border-radius: 20px;
         }
 
         .cta-title {
-            font-size: 24px;
+            font-size: 28px;
             color: #2c3e50;
             margin-bottom: 15px;
-            font-weight: 600;
+            font-weight: 700;
         }
 
         .cta-description {
             color: #6c757d;
-            margin-bottom: 25px;
+            margin-bottom: 30px;
             font-size: 16px;
+            line-height: 1.6;
+        }
+
+        .btn-primary {
+            display: inline-block;
+            padding: 18px 45px;
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(255, 107, 53, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(255, 107, 53, 0.4);
         }
 
         .btn-secondary {
             display: inline-block;
-            padding: 12px 25px;
-            background: transparent;
+            padding: 14px 30px;
+            background: white;
             border: 2px solid #6c757d;
             color: #6c757d;
             text-decoration: none;
-            border-radius: 25px;
+            border-radius: 50px;
             font-weight: 600;
             transition: all 0.3s ease;
-            margin: 0 10px;
+            margin: 0 8px;
+            font-size: 14px;
         }
 
         .btn-secondary:hover {
@@ -276,19 +383,47 @@
             transform: translateY(-2px);
         }
 
+        .warning-box {
+            margin-top: 45px;
+            padding: 25px;
+            background: linear-gradient(135deg, #fff3cd 0%, #ffe69c 100%);
+            border-radius: 12px;
+            border-left: 5px solid #ffc107;
+        }
+
+        .warning-box strong {
+            color: #856404;
+            font-size: 16px;
+        }
+
+        .warning-box p {
+            color: #856404;
+            margin-top: 8px;
+            line-height: 1.6;
+        }
+
         .footer {
             background: #2c3e50;
             color: white;
-            padding: 40px 30px;
+            padding: 50px 40px;
             text-align: center;
         }
 
-        .footer-content {
-            margin-bottom: 25px;
+        .footer-logo {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: #ff6b35;
+        }
+
+        .footer-content p {
+            margin-bottom: 30px;
+            font-size: 14px;
+            color: #bdc3c7;
         }
 
         .footer-links {
-            margin: 25px 0;
+            margin: 30px 0;
         }
 
         .footer-links a {
@@ -296,53 +431,54 @@
             text-decoration: none;
             margin: 0 15px;
             font-size: 14px;
+            font-weight: 500;
+            transition: color 0.3s ease;
         }
 
         .footer-links a:hover {
-            color: white;
+            color: #ff6b35;
         }
 
         .disclaimer {
             font-size: 12px;
             color: #95a5a6;
-            margin-top: 20px;
-            line-height: 1.5;
+            margin-top: 25px;
+            line-height: 1.6;
         }
 
         @media (max-width: 600px) {
             .email-container {
-                margin: 10px;
+                margin: 15px;
             }
 
-            .content {
-                padding: 25px 20px;
-            }
-
-            .header {
-                padding: 30px 20px;
+            .content, .header {
+                padding: 30px 25px;
             }
 
             .header h1 {
                 font-size: 26px;
             }
 
-            .detail-row {
-                flex-direction: column;
-                text-align: left;
-                align-items: flex-start;
+            .greeting {
+                font-size: 20px;
             }
 
-            .detail-value {
-                margin-top: 5px;
-                font-weight: 600;
+            .plan-price {
+                font-size: 32px;
             }
 
             .features-grid {
                 grid-template-columns: 1fr;
             }
 
-            .plan-price {
-                font-size: 28px;
+            .btn-primary {
+                display: block;
+                margin: 10px 0;
+            }
+
+            .btn-secondary {
+                display: block;
+                margin: 10px 0;
             }
         }
     </style>
@@ -352,73 +488,58 @@
         <!-- Header -->
         <div class="header">
             <div class="header-content">
-                <h1>🏢 ImmoConnect Pro</h1>
-                <p>Activation de votre compte professionnel</p>
+                <div class="header-icon">🏠</div>
+                <h1>ImmoConnect Pro</h1>
+                <p>Bienvenue dans votre espace professionnel</p>
             </div>
         </div>
 
         <!-- Content -->
         <div class="content">
             <div class="greeting">
-                Bonjour <strong>{{ $agencyName }}</strong> !
+                Félicitations <strong>{{ $agencyName }}</strong> ! 🎉
             </div>
 
-            <p>Félicitations ! Votre inscription à notre plateforme immobilière a été validée. Il ne vous reste plus qu'une étape pour activer votre compte et commencer à utiliser toutes nos fonctionnalités.</p>
+            <p class="intro-text">
+                Nous sommes ravis de vous accueillir ! Votre abonnement a été activé avec succès et vous pouvez maintenant profiter de toutes les fonctionnalités de notre plateforme immobilière.
+            </p>
 
-            <!-- Activation Box -->
-            <div class="activation-box">
-                <div class="activation-icon">🔐</div>
-                <h3>Activez votre compte maintenant</h3>
-                <p>Cliquez sur le bouton ci-dessous pour activer votre compte et accéder immédiatement à votre tableau de bord.</p>
-                <a href="{{ $activationUrl }}" class="activation-btn">
-                    ✨ Activer mon compte
-                </a>
+            <!-- Success Banner -->
+            <div class="success-banner">
+                <div class="success-icon">✓</div>
+                <h3>Votre compte est maintenant actif !</h3>
+                <p>Vous pouvez dès à présent accéder à votre tableau de bord et commencer à gérer vos annonces immobilières.</p>
             </div>
 
-            <!-- Plan Highlight -->
-            <div class="plan-highlight">
+            <!-- Plan Card -->
+            <div class="plan-card">
                 <div class="plan-badge">{{ $planIcon }}</div>
                 <div class="plan-name">Plan {{ $subscriptionPlan }}</div>
-                <div class="plan-price">{{ number_format($subscriptionPrice, 2) }} {{ $subscriptionCurrency }}</div>
-                <div class="plan-period">{{ $subscriptionPeriod === 'monthly' ? 'par mois' : 'par an' }}</div>
+                <div class="plan-price">{{ number_format($subscriptionPrice, 0, ',', ' ') }} Ar</div>
+                <div class="plan-period">Par mois</div>
             </div>
 
-            <!-- Subscription Details -->
-            <div class="subscription-details">
+            <!-- Details Section -->
+            <div class="details-section">
+                <h3 class="details-title">
+                    <span class="details-icon">📋</span>
+                    Détails de votre abonnement
+                </h3>
                 <div class="detail-row">
-                    <span class="detail-label">
-                        <span class="detail-icon">📋</span>
-                        Plan souscrit
-                    </span>
+                    <span class="detail-label">Plan souscrit</span>
                     <span class="detail-value">{{ $subscriptionPlan }}</span>
                 </div>
                 <div class="detail-row">
-                    <span class="detail-label">
-                        <span class="detail-icon">📅</span>
-                        Date d'activation
-                    </span>
+                    <span class="detail-label">Date d'activation</span>
                     <span class="detail-value">{{ $startDate }}</span>
                 </div>
                 <div class="detail-row">
-                    <span class="detail-label">
-                        <span class="detail-icon">🔄</span>
-                        Prochaine facturation
-                    </span>
+                    <span class="detail-label">Prochaine facturation</span>
                     <span class="detail-value">{{ $endDate }}</span>
                 </div>
                 <div class="detail-row">
-                    <span class="detail-label">
-                        <span class="detail-icon">🏠</span>
-                        Annonces incluses
-                    </span>
+                    <span class="detail-label">Annonces par mois</span>
                     <span class="detail-value">{{ $maxListings }}</span>
-                </div>
-                <div class="detail-row">
-                    <span class="detail-label">
-                        <span class="detail-icon">🎧</span>
-                        Support client
-                    </span>
-                    <span class="detail-value">{{ $supportLevel }}</span>
                 </div>
             </div>
 
@@ -440,46 +561,53 @@
             </div>
             @endif
 
-            <!-- Call to Action Section -->
+            <!-- CTA Section -->
             <div class="cta-section">
-                <h3 class="cta-title">🚀 Prêt à commencer ?</h3>
+                <h3 class="cta-title">🚀 Prêt à démarrer ?</h3>
                 <p class="cta-description">
-                    Une fois votre compte activé, vous aurez accès à tous les outils pour gérer vos annonces immobilières de manière professionnelle.
+                    Accédez à votre tableau de bord et découvrez tous les outils pour gérer vos annonces immobilières de manière professionnelle.
                 </p>
+                <a href="{{ $dashboardUrl }}" class="btn-primary">
+                    Accéder au tableau de bord
+                </a>
+                <br><br>
                 <a href="{{ $supportUrl }}" class="btn-secondary">Centre d'aide</a>
-                <a href="{{ $dashboardUrl }}" class="btn-secondary">Découvrir la plateforme</a>
+                <a href="#" class="btn-secondary">Documentation</a>
             </div>
 
-            <div style="margin-top: 40px; padding: 20px; background: #fff3cd; border-radius: 8px; border-left: 4px solid #ffc107;">
-                <p><strong>⏰ Important :</strong> Ce lien d'activation expirera dans 24 heures. Si vous avez des difficultés, contactez notre support technique.</p>
+            <!-- Warning Box -->
+            <div class="warning-box">
+                <strong>💡 Conseil :</strong>
+                <p>Complétez votre profil et ajoutez votre première annonce dès maintenant pour maximiser votre visibilité. Notre équipe support est disponible pour vous accompagner !</p>
             </div>
 
-            <p style="margin-top: 30px;">
-                Nous sommes ravis de vous accueillir dans la famille ImmoConnect Pro !
+            <p style="margin-top: 40px; color: #6c757d;">
+                Nous sommes impatients de voir votre activité se développer sur notre plateforme.
             </p>
 
-            <p style="margin-top: 20px;">
+            <p style="margin-top: 25px; font-weight: 600; color: #2c3e50;">
                 Cordialement,<br>
-                <strong>L'équipe ImmoConnect Pro</strong>
+                <span style="color: #ff6b35;">L'équipe ImmoConnect Pro</span>
             </p>
         </div>
 
         <!-- Footer -->
         <div class="footer">
+            <div class="footer-logo">🏠 ImmoConnect Pro</div>
             <div class="footer-content">
-                <p>Merci d'avoir choisi ImmoConnect Pro pour développer votre activité immobilière.</p>
+                <p>Votre partenaire pour une gestion immobilière professionnelle et efficace.</p>
             </div>
 
             <div class="footer-links">
                 <a href="{{ $dashboardUrl }}">Tableau de bord</a>
                 <a href="{{ $supportUrl }}">Support</a>
-                <a href="#">Conditions d'utilisation</a>
+                <a href="#">CGU</a>
                 <a href="#">Confidentialité</a>
             </div>
 
             <div class="disclaimer">
                 Cet email a été envoyé à {{ $agencyEmail }}.<br>
-                Si vous n'êtes pas à l'origine de cette inscription, veuillez ignorer cet email.<br>
+                Si vous n'avez pas créé de compte, veuillez ignorer cet email.<br>
                 &copy; {{ date('Y') }} ImmoConnect Pro. Tous droits réservés.
             </div>
         </div>

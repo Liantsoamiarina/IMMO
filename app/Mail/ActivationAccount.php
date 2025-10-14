@@ -1,9 +1,10 @@
 <?php
 
 namespace App\Mail;
-use App\Models\Abonnement;
+
+use App\Models\Subscription;
+use App\Models\User;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
@@ -13,51 +14,71 @@ class ActivationAccount extends Mailable
 {
     use Queueable, SerializesModels;
 
+    public $user;
+    public $subscription;
 
-
-    /**
-     * Create a new message instance.
-     */
-    public function __construct(public $user,public $abonnement)
+    public function __construct(User $user, Subscription $subscription)
     {
-
+        $this->user = $user;
+        $this->subscription = $subscription;
     }
 
-    /**
-     * Get the message envelope.
-     */
     public function envelope(): Envelope
     {
-       return new Envelope(
-            subject: 'Confirmation de votre abonnement ' . $this->abonnement->getTypeDisplayName(),
+        return new Envelope(
+            subject: 'Votre abonnement ' . ucfirst($this->subscription->type) . ' a été activé ! 🎉',
         );
     }
 
     public function content(): Content
     {
-           return new Content(
-            view: 'emails.subscription-confirmation',
+        $plan = Subscription::$plans[$this->subscription->type];
+
+        // Features selon le plan
+        $features = match($this->subscription->type) {
+            'free' => [
+                'Accès aux annonces publiques',
+                'Filtres de recherche basiques',
+                '5 annonces par mois'
+            ],
+            'silver' => [
+                'Tout du plan Gratuit',
+                '20 annonces par mois',
+                'Filtres de recherche avancés',
+                'Support par email'
+            ],
+            'gold' => [
+                'Tout du plan Silver',
+                'Annonces illimitées',
+                'Conseiller personnel dédié',
+                'Analyses de marché privées',
+                'Support prioritaire 24/7'
+            ],
+            default => []
+        };
+
+        return new Content(
+            view: 'mail.inscriptionValide',
             with: [
-                'user' => $this->user,
-                'subscription' => $this->abonnement,
-                'features' => $this->abonnement->getFeatures(),
+                'agencyName' => $this->user->name,
+                'agencyEmail' => $this->user->email,
+                'subscriptionPlan' => ucfirst($this->subscription->type),
+                'planIcon' => match($this->subscription->type) {
+                    'gold' => '👑',
+                    'silver' => '🏢',
+                    default => '🏠'
+                },
+                'subscriptionPrice' => $plan['price'],
+                'startDate' => $this->subscription->starts_at->format('d/m/Y'),
+                'endDate' => $this->subscription->expires_at->format('d/m/Y'),
+                'maxListings' => $this->subscription->getPostsLimit() === -1 ? 'Illimité' : $this->subscription->getPostsLimit(),
+                'planFeatures' => $features,
+                'dashboardUrl' => route('/'),
+                'supportUrl' => url('/support'),
             ],
         );
     }
 
-
-    public function build()
-    {
-        return $this->subject('location validé')->view("views.mail.inscriptionValide")
-        ->with([
-            'name' => $this->user->name
-        ]);
-    }
-    /**
-     * Get the attachments for the message.
-     *
-     * @return array<int, \Illuminate\Mail\Mailables\Attachment>
-     */
     public function attachments(): array
     {
         return [];

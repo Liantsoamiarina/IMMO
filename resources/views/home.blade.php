@@ -742,13 +742,13 @@ $pageTitle ="Immo | Acceuil";
                             <span class="feature-icon">
                                 <i class="fas fa-check"></i>
                             </span>
-                            Newsletter hebdomadaire
+                          Filtres de recherche basiques
                         </li>
                         <li>
                             <span class="feature-icon">
                                 <i class="fas fa-check"></i>
                             </span>
-                            5 contacts par mois
+                            5 annonces par mois
                         </li>
                         <li>
                             <span class="feature-icon disabled">
@@ -797,20 +797,15 @@ $pageTitle ="Immo | Acceuil";
                             <span class="feature-icon">
                                 <i class="fas fa-check"></i>
                             </span>
-                            50 contacts par mois
+                            20 annonces par mois
                         </li>
                         <li>
                             <span class="feature-icon">
                                 <i class="fas fa-check"></i>
                             </span>
-                            Alertes personnalisées
+                            Filtres de recherche avancés
                         </li>
-                        <li>
-                            <span class="feature-icon">
-                                <i class="fas fa-check"></i>
-                            </span>
-                            Support prioritaire
-                        </li>
+
                         <li>
                             <span class="feature-icon disabled">
                                 <i class="fas fa-times"></i>
@@ -819,7 +814,7 @@ $pageTitle ="Immo | Acceuil";
                         </li>
                     </ul>
 
-                    <a href="#" class="plan-button">Choisir Silver</a>
+                    <a href="{{ route("Abonnement") }}" class="plan-button">Choisir Silver</a>
                 </div>
 
                 <!-- Plan Gold -->
@@ -852,14 +847,14 @@ $pageTitle ="Immo | Acceuil";
                             <span class="feature-icon">
                                 <i class="fas fa-check"></i>
                             </span>
-                            Contacts illimités
+                            Annonces illimités
                         </li>
-                        <li>
+                        {{-- <li>
                             <span class="feature-icon">
                                 <i class="fas fa-check"></i>
                             </span>
                             Annonces exclusives 24h avant
-                        </li>
+                        </li> --}}
                         <li>
                             <span class="feature-icon">
                                 <i class="fas fa-check"></i>
@@ -874,7 +869,7 @@ $pageTitle ="Immo | Acceuil";
                         </li>
                     </ul>
 
-                    <a href="#" class="plan-button">Choisir Gold</a>
+                    <a href="{{ route("Abonnement") }}" class="plan-button">Choisir Gold</a>
                 </div>
             </div>
         </div>
@@ -953,6 +948,43 @@ $pageTitle ="Immo | Acceuil";
       </div>
     </div>
   </div>
+  <script src="{{ asset("assets/js/sweetalert2@11.js") }}"></script>
+
+<script>
+    @if(session('success'))
+        Swal.fire({
+            icon: 'success',
+            title: 'Parfait !',
+            html: '<p style="font-size: 16px;">{{ session('success') }}</p>',
+            showConfirmButton: true,
+            confirmButtonColor: '#ff6b35',
+            confirmButtonText: '<i class="fas fa-check"></i> Compris',
+            timer: 6000,
+            timerProgressBar: true,
+            backdrop: `
+                rgba(255,107,53,0.2)
+                left top
+                no-repeat
+            `,
+            customClass: {
+                popup: 'animated fadeInDown'
+            }
+        });
+    @endif
+
+    @if(session('error'))
+        Swal.fire({
+            icon: 'error',
+            title: 'Oups !',
+            html: '<p style="font-size: 16px;">{{ session('error') }}</p>',
+            confirmButtonColor: '#dc3545',
+            confirmButtonText: '<i class="fas fa-times"></i> Fermer',
+            customClass: {
+                popup: 'animated shake'
+            }
+        });
+    @endif
+</script>
 <script>
         // Animation au scroll
         const observerOptions = {
@@ -974,31 +1006,31 @@ $pageTitle ="Immo | Acceuil";
         });
 
         // Gestion des clics sur les boutons
-        document.querySelectorAll('.plan-button').forEach(button => {
-            button.addEventListener('click', function(e) {
-                e.preventDefault();
+        // document.querySelectorAll('.plan-button').forEach(button => {
+        //     button.addEventListener('click', function(e) {
+        //         e.preventDefault();
 
-                const card = this.closest('.pricing-card');
-                const planName = card.querySelector('.plan-name').textContent;
+        //         const card = this.closest('.pricing-card');
+        //         const planName = card.querySelector('.plan-name').textContent;
 
-                // Animation du bouton
-                const originalText = this.textContent;
-                this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Traitement...';
-                this.disabled = true;
+        //         // Animation du bouton
+        //         const originalText = this.textContent;
+        //         this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Traitement...';
+        //         this.disabled = true;
 
-                setTimeout(() => {
-                    this.innerHTML = '<i class="fas fa-check"></i> Plan sélectionné !';
+        //         setTimeout(() => {
+        //             this.innerHTML = '<i class="fas fa-check"></i> Plan sélectionné !';
 
-                    setTimeout(() => {
-                        this.innerHTML = originalText;
-                        this.disabled = false;
+        //             setTimeout(() => {
+        //                 this.innerHTML = originalText;
+        //                 this.disabled = false;
 
-                        // Ici vous pouvez ajouter votre logique de redirection ou d'ouverture de modal
-                        console.log(`Plan ${planName} sélectionné`);
-                    }, 2000);
-                }, 1500);
-            });
-        });
+        //                 // Ici vous pouvez ajouter votre logique de redirection ou d'ouverture de modal
+        //                 console.log(`Plan ${planName} sélectionné`);
+        //             }, 2000);
+        //         }, 1500);
+        //     });
+        // });
 
         // Effet de survol amélioré
         document.querySelectorAll('.pricing-card').forEach(card => {
@@ -1011,4 +1043,5 @@ $pageTitle ="Immo | Acceuil";
             });
         });
     </script>
+
   @endsection

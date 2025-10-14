@@ -64,8 +64,7 @@
                 <nav class="main-nav">
 
                     <a href="/" class="logo">
-                        <img src="{{ asset("assets/images/Logo/Logo (2).png") }}" alt="logo"">
-                        <h1>mmo</h1>
+                        <img src="{{ asset("assets/images/Logo/MMO.png") }}" alt="logo"">
                     </a>
 
                     <ul class="nav">

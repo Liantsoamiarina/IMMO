@@ -24,8 +24,9 @@
     </div>
     <nav>
       <a href="{{ route("admin.dashboard") }}" class="nav-item {{ Route::is("admin.dashboard") ? 'active' : '' }}"><i class="fa-solid fa-chart-line"></i> Dashboard</a>
-      <a href="{{ route("admin.property") }}" class="nav-item {{ Route::is("admin.property") ? 'active' : '' }}"><i class="fa-solid fa-building"></i> Properties</a>
-      <a class="nav-item"><i class="fa-solid fa-user-tie"></i> Agents</a>
+      <a href="{{ route("admin.property") }}" class="nav-item {{ Route::is("admin.property") ? 'active' : '' }}"><i class="fa-solid fa-building"></i> Propriétés</a>
+      <a class="nav-item"><i class="fa-solid fa-user-tie"></i> Client</a>
+      <a href="{{ route("admin.subscriptions.index") }}" class="nav-item {{ Route::is("admin.subscriptions.index") ? 'active' : '' }}"><i class="fa-solid fa-user-tie"></i> Abonnement</a>
       <a class="nav-item"><i class="fa-solid fa-user"></i> My Profile</a>
 
         <form action="{{ route('logout') }}" method="POST" style="display:flex;">

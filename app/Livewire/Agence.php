@@ -40,23 +40,29 @@ class Agence extends Component
         'images.*' => 'image|mimes:jpg,jpeg,png,webp|max:2048',
     ];
 
-    public function mount()
-    {
-        // Ne pas charger les propriétés immédiatement pour éviter le loading
-        $this->properties = collect([]);
-        // Utiliser un dispatch pour charger après le rendu initial
-        $this->dispatch('load-properties');
-    }
+   public function mount()
+{
+    $this->loadProperties();
+    $this->isLoading = false;
+}
 
-    public function loadPropertiesData()
-    {
-        $this->properties = Property::with('images')->latest()->get();
-    }
+public function loadPropertiesData()
+{
+    $this->properties = Property::with('images')
+        ->where('user_id', Auth::id())
+        ->latest()
+        ->get();
 
-    public function loadProperties()
-    {
-        $this->properties = Property::with('images')->latest()->get();
-    }
+    \Log::info('Properties loaded: ' . $this->properties->count() . ' for user ' . Auth::id());
+}
+
+public function loadProperties()
+{
+    $this->properties = Property::with('images')
+        ->where('user_id', Auth::id())
+        ->latest()
+        ->get();
+}
 
     public function updatedImages()
     {
@@ -130,113 +136,134 @@ class Agence extends Component
         ]);
     }
 
-    public function edit($id)
-    {
-        $this->editingProperty = Property::with('images')->findOrFail($id);
-        $this->editingId = $id;
+public function edit($id)
+{
+    $this->editingProperty = Property::with('images')->findOrFail($id);
+    $this->editingId = $id;
 
-        // Remplir le formulaire
-        $this->title = $this->editingProperty->title;
-        $this->price = $this->editingProperty->price;
-        $this->description = $this->editingProperty->description;
-        $this->type = $this->editingProperty->type;
-        $this->transaction_type = $this->editingProperty->transaction_type;
-        $this->surface = $this->editingProperty->surface;
-        $this->rooms = $this->editingProperty->rooms;
-        $this->floors = $this->editingProperty->floors;
-        $this->parking = $this->editingProperty->parking;
-        $this->address = $this->editingProperty->address;
-        $this->city = $this->editingProperty->city;
-        $this->country = $this->editingProperty->country;
+    // Remplir le formulaire
+    $this->title = $this->editingProperty->title;
+    $this->price = $this->editingProperty->price;
+    $this->description = $this->editingProperty->description;
+    $this->type = $this->editingProperty->type;
+    $this->transaction_type = $this->editingProperty->transaction_type;
+    $this->surface = $this->editingProperty->surface;
+    $this->rooms = $this->editingProperty->rooms;
+    $this->floors = $this->editingProperty->floors;
+    $this->parking = $this->editingProperty->parking;
+    $this->address = $this->editingProperty->address;
+    $this->city = $this->editingProperty->city;
+    $this->country = $this->editingProperty->country;
 
-        $this->dispatch('open-modal', ['modal' => 'editPropertyModal']);
-    }
+    // Dispatcher un événement pour ouvrir SweetAlert
+    $this->dispatch('open-edit-modal', property: $this->editingProperty->toArray());
+}
 
-    public function update()
-    {
-        $this->validate();
+public function confirmDelete($id)
+{
+    $this->deletingProperty = Property::findOrFail($id);
 
-        $property = Property::findOrFail($this->editingId);
+    // Dispatcher un événement pour SweetAlert
+    $this->dispatch('confirm-delete', [
+        'id' => $id,
+        'title' => $this->deletingProperty->title
+    ]);
+}
 
-        if ($this->type === 'terrain') {
-            $this->rooms = null;
-            $this->floors = null;
-            $this->parking = false;
-        }
+public function delete($id)
+{
+    $property = Property::where($id);
 
-        // Mise à jour de la propriété
-        $property->update([
-            'title'             => $this->title,
-            'description'       => $this->description,
-            'price'             => $this->price,
-            'type'              => $this->type,
-            'transaction_type'  => $this->transaction_type,
-            'surface'           => $this->surface,
-            'rooms'             => $this->rooms,
-            'floors'            => $this->floors,
-            'parking'           => (bool) $this->parking,
-            'address'           => $this->address,
-            'city'              => $this->city,
-            'country'           => $this->country,
-        ]);
-
-        // Gestion des nouvelles images si fournies
-        if ($this->images && count($this->images) > 0) {
-            // Supprimer les anciennes images
-            foreach ($property->images as $oldImage) {
-                Storage::disk('public')->delete($oldImage->image_path);
-                $oldImage->delete();
-            }
-
-            // Ajouter les nouvelles images
-            foreach ($this->images as $image) {
-                $path = $image->store('properties', 'public');
-                PropertyImage::create([
-                    'property_id' => $property->id,
-                    'image_path'  => $path,
-                ]);
-            }
-        }
-
-        $this->loadProperties();
-        $this->resetForm();
-        $this->editingId = null;
-        $this->editingProperty = null;
-
-        $this->dispatch('close-modal');
+    // Vérifier que c'est bien la propriété de l'utilisateur
+    if ($property->user_id !== Auth::id()) {
         $this->dispatch('show-toast', [
-            'type' => 'success',
-            'message' => 'Propriété modifiée avec succès!'
+            'type' => 'error',
+            'message' => 'Vous n\'avez pas la permission de supprimer cette propriété.'
         ]);
+        return;
     }
 
-    public function confirmDelete($id)
-    {
-        $this->deletingProperty = Property::findOrFail($id);
-        $this->dispatch('open-modal', ['modal' => 'deletePropertyModal']);
+    // Supprimer les images
+    foreach ($property->images as $image) {
+        Storage::disk('public')->delete($image->image_path);
+        $image->delete();
     }
 
-    public function delete()
-    {
-        if ($this->deletingProperty) {
-            // Supprimer toutes les images associées
-            foreach ($this->deletingProperty->images as $image) {
-                Storage::disk('public')->delete($image->image_path);
-                $image->delete();
-            }
+    // Supprimer la propriété
+    $property->delete();
 
-            // Supprimer la propriété
-            $this->deletingProperty->delete();
-            $this->loadProperties();
-            $this->deletingProperty = null;
+    // Recharger les propriétés
+    $this->loadProperties();
 
-            $this->dispatch('close-modal');
-            $this->dispatch('show-toast', [
-                'type' => 'success',
-                'message' => 'Propriété supprimée avec succès!'
+    $this->dispatch('show-toast', [
+        'type' => 'success',
+        'message' => 'Propriété supprimée avec succès!'
+    ]);
+}
+
+public function update()
+{
+    $this->validate();
+
+    $property = Property::findOrFail($this->editingId);
+
+    // Vérifier que c'est bien la propriété de l'utilisateur
+    if ($property->user_id !== Auth::id()) {
+        $this->dispatch('show-toast', [
+            'type' => 'error',
+            'message' => 'Vous n\'avez pas la permission de modifier cette propriété.'
+        ]);
+        return;
+    }
+
+    if ($this->type === 'terrain') {
+        $this->rooms = null;
+        $this->floors = null;
+        $this->parking = false;
+    }
+
+    // Mise à jour
+    $property->update([
+        'title'             => $this->title,
+        'description'       => $this->description,
+        'price'             => $this->price,
+        'type'              => $this->type,
+        'transaction_type'  => $this->transaction_type,
+        'surface'           => $this->surface,
+        'rooms'             => $this->rooms,
+        'floors'            => $this->floors,
+        'parking'           => (bool) $this->parking,
+        'address'           => $this->address,
+        'city'              => $this->city,
+        'country'           => $this->country,
+    ]);
+
+    // Gestion des nouvelles images
+    if ($this->images && count($this->images) > 0) {
+        foreach ($property->images as $oldImage) {
+            Storage::disk('public')->delete($oldImage->image_path);
+            $oldImage->delete();
+        }
+
+        foreach ($this->images as $image) {
+            $path = $image->store('properties', 'public');
+            PropertyImage::create([
+                'property_id' => $property->id,
+                'image_path'  => $path,
             ]);
         }
     }
+
+    $this->loadProperties();
+    $this->resetForm();
+    $this->editingId = null;
+    $this->editingProperty = null;
+
+    $this->dispatch('show-toast', [
+        'type' => 'success',
+        'message' => 'Propriété modifiée avec succès!'
+    ]);
+}
 
     public function resetForm()
     {
@@ -254,6 +281,12 @@ class Agence extends Component
 
     public function render()
     {
+    //     dd([
+    //     'user_authenticated' => Auth::check(),
+    //     'user_id' => Auth::id(),
+    //     'properties_count' => $this->properties->count(),
+    //     'properties' => $this->properties
+    // ]);
         return view('livewire.agence');
     }
 }
