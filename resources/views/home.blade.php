@@ -606,8 +606,8 @@ $pageTitle ="Immo | Acceuil";
       <div class="row">
         <div class="col-lg-4 offset-lg-4">
           <div class="section-heading text-center">
-            <h6>| Properties</h6>
-            <h2>We Provide The Best Property You Like</h2>
+            <h6>| Propriétés</h6>
+            <h2>Nous fournissons la meilleure propriété que vous aimerez</h2>
           </div>
         </div>
       </div>

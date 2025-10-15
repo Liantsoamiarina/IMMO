@@ -73,7 +73,7 @@ class ActivationAccount extends Mailable
                 'endDate' => $this->subscription->expires_at->format('d/m/Y'),
                 'maxListings' => $this->subscription->getPostsLimit() === -1 ? 'Illimité' : $this->subscription->getPostsLimit(),
                 'planFeatures' => $features,
-                'dashboardUrl' => route('/'),
+                'dashboardUrl' => route('homepage'),
                 'supportUrl' => url('/support'),
             ],
         );

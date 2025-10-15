@@ -362,7 +362,7 @@
             @enderror
 
             <div class="form-text">
-              Formats acceptés: JPG, JPEG, PNG, WEBP. Taille max: 2MB par image.
+              Formats acceptés: JPG, JPEG, PNG, WEBP.
             </div>
           </div>
 
@@ -433,5 +433,52 @@
     </div>
   </div>
 </div>
+@if(session('property_created'))
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const propertyData = @json(session('property_created'));
 
+        Swal.fire({
+            icon: 'success',
+            title: '<i class="fas fa-home me-2"></i>Propriété créée avec succès !',
+            html: `
+                <div class="text-start">
+                    <p class="mb-2"><strong>Titre:</strong> ${propertyData.title}</p>
+                    <p class="mb-2"><strong>Prix:</strong> ${propertyData.price} Ar</p>
+                    <p class="mb-2"><strong>Type:</strong> ${propertyData.type}</p>
+                    <p class="mb-0"><strong>Transaction:</strong> ${propertyData.transaction}</p>
+                </div>
+            `,
+            confirmButtonText: '<i class="fas fa-check me-2"></i>Super !',
+            confirmButtonColor: '#28a745',
+            timer: 5000,
+            timerProgressBar: true,
+            showClass: {
+                popup: 'animate__animated animate__fadeInDown'
+            },
+            hideClass: {
+                popup: 'animate__animated animate__fadeOutUp'
+            }
+        });
+    });
+</script>
+@endif
+<style>
+    @keyframes slideInDown {
+    from {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.alert-success {
+    animation: slideInDown 0.5s ease-out;
+    border-left: 5px solid #28a745;
+    box-shadow: 0 4px 15px rgba(40, 167, 69, 0.2);
+}
+</style>
 </main>

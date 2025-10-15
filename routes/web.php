@@ -56,18 +56,7 @@ Route::get('/login', [AuthController::class, 'showLogin'])->name('login.form');
 Route::post('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-// //redirection par role
-// Route::middleware('auth')->get('/dashboard', function () {
-//     $user = Auth::user();
 
-//     if ($user->role === 'admin') {
-//         return view('admin.dashboard');
-//     } elseif ($user->role === 'owner') {
-//         return view('agence.agence');
-//     } else {
-//         return view('home'); // client va à la page d'accueil
-//     }
-// })->name('dashboard');
 
 
 // Créer des routes séparées

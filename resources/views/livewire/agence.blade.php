@@ -6,7 +6,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>VillaAgency - Votre Partenaire Immobilier de Confiance</title>
-
+@livewireStyles
 <!-- Bootstrap 5 CDN -->
 <link rel="stylesheet" href="{{ asset("assets/bootstrap/css/bootstrap.min.css") }}">
 <link rel="stylesheet" href="{{ asset("assets/css/sweetalert2.min.css") }}">
@@ -14,6 +14,7 @@
 <link rel="stylesheet" href="{{ asset("assets/fontawesome/css/all.min.css") }}">
    {{-- popup login --}}
 <link rel="stylesheet" href="{{ asset("assets/notyf/notyf.min.css") }}">
+
 
 <style>
 :root {
@@ -573,7 +574,7 @@ html { scroll-behavior: smooth; }
 <nav class="navbar navbar-expand-lg fixed-top">
   <div class="container d-flex">
  <a href="/" class="navbar-brand logo ">
-     <img src="{{ asset("assets/images/Logo/MMO.jpg") }}" alt="logo"">
+     <img src="{{ asset("assets/images/Logo/MMO.png") }}" alt="logo"">
 
  </a>
 
@@ -586,8 +587,8 @@ html { scroll-behavior: smooth; }
 
   margin-left: -75px;
 }
+</style>
 
-                    </style>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -1180,9 +1181,12 @@ html { scroll-behavior: smooth; }
 </section>
 
 
+<!-- PANEL DE DEBUG - À RETIRER EN PRODUCTION -->
 <div class="alert alert-info">
     DEBUG: User {{ Auth::id() }} a {{ $properties->count() }} propriétés
 </div>
+
+
 
 <!-- Modal Edit -->
 <div class="modal fade" id="editPropertyModal" tabindex="-1" aria-hidden="true" wire:ignore.self>
@@ -1304,7 +1308,7 @@ html { scroll-behavior: smooth; }
     </div>
   </div>
 </div>
-
+@livewireScripts
 <!-- Scripts pour les événements Livewire -->
 @script
 <script>
@@ -1415,87 +1419,21 @@ document.addEventListener('DOMContentLoaded', function() {
 <script src="{{ asset("assets/notyf/notyf.min.js") }}"></script>
 <script src="{{ asset("assets/js/sweetalert2.min.js") }}"></script>
 
-<script>
-// Navigation scroll effect
-window.addEventListener('scroll', function() {
-  const navbar = document.querySelector('.navbar');
-  if (window.scrollY > 50) {
-    navbar.classList.add('scrolled');
-  } else {
-    navbar.classList.remove('scrolled');
-  }
-});
 
-// QuickView functionality
-document.querySelectorAll('.dropdown-item[data-bs-target="#quickViewModal"]').forEach(btn => {
-  btn.addEventListener('click', (e) => {
-    const propertyCard = e.target.closest('.property-card');
-    const title = propertyCard.querySelector('.property-title').textContent;
-    const price = propertyCard.querySelector('.property-price').textContent;
-    const address = propertyCard.querySelector('.property-address').textContent.trim();
-    const imageUrl = propertyCard.querySelector('.property-image').style.backgroundImage.slice(5, -2);
-
-    document.getElementById('quickViewModal').querySelector('.modal-title').innerHTML =
-      '<i class="fas fa-eye me-2"></i>' + title;
-    document.getElementById('quickViewImage').src = imageUrl;
-    document.getElementById('quickViewPrice').textContent = price;
-    document.getElementById('quickViewAddress').textContent = address;
-  });
-});
-
-// Smooth scrolling for navigation links
-document.querySelectorAll('.nav-link, .btn-hero').forEach(link => {
-  link.addEventListener('click', function(e) {
-    const href = this.getAttribute('href');
-    if (href && href.startsWith('#')) {
-      e.preventDefault();
-      const target = document.querySelector(href);
-      if (target) {
-        const offsetTop = target.offsetTop - 80;
-        window.scrollTo({
-          top: offsetTop,
-          behavior: 'smooth'
-        });
-      }
-    }
-  });
-});
-
-// Active navigation link update
-window.addEventListener('scroll', function() {
-  const sections = document.querySelectorAll('section');
-  const navLinks = document.querySelectorAll('.nav-link');
-
-  let current = '';
-  sections.forEach(section => {
-    const sectionTop = section.offsetTop - 100;
-    if (pageYOffset >= sectionTop) {
-      current = section.getAttribute('id');
-    }
-  });
-
-  navLinks.forEach(link => {
-    link.classList.remove('active');
-    if (link.getAttribute('href') === '#' + current) {
-      link.classList.add('active');
-    }
-  });
-});
-
-// Form submissions
-// document.querySelectorAll('form').forEach(form => {
-//   form.addEventListener('submit', function(e) {
-//     e.preventDefault();
-//     alert('Fonctionnalité à implémenter !');
-//   });
-</script>
 @script
 <script>
+    console.log('🔧 Livewire scripts chargés');
+
     // SweetAlert pour la suppression
     $wire.on('confirm-delete', (event) => {
+        console.log('📢 confirm-delete reçu:', event);
+
+        // CORRECTION: Accès aux données de l'événement
+        const data = Array.isArray(event) ? event[0] : event;
+
         Swal.fire({
             title: 'Êtes-vous sûr ?',
-            html: `Voulez-vous vraiment supprimer <strong>"${event.title}"</strong> ?<br><small>Cette action est irréversible.</small>`,
+            html: `Voulez-vous vraiment supprimer <strong>"${data.title}"</strong> ?<br><small class="text-muted">Cette action est irréversible.</small>`,
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#dc3545',
@@ -1505,46 +1443,70 @@ window.addEventListener('scroll', function() {
             reverseButtons: true
         }).then((result) => {
             if (result.isConfirmed) {
-                $wire.call('delete', event.id);
+                console.log('✅ Confirmation suppression, ID:', data.id);
+
+                // CORRECTION IMPORTANTE: Appel asynchrone avec gestion d'erreur
+                try {
+                    $wire.call('delete', data.id).then(() => {
+                        console.log('✅ Suppression terminée avec succès');
+                    }).catch((error) => {
+                        console.error('❌ Erreur lors de la suppression:', error);
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Erreur',
+                            text: 'Une erreur est survenue lors de la suppression'
+                        });
+                    });
+                } catch (error) {
+                    console.error('❌ Exception:', error);
+                }
+            } else {
+                console.log('❌ Suppression annulée');
             }
         });
     });
 
     // SweetAlert pour la modification
     $wire.on('open-edit-modal', async (event) => {
-        const property = event.property;
+        console.log('📢 open-edit-modal reçu:', event);
+
+        // CORRECTION: Accès aux données de l'événement
+        const data = Array.isArray(event) ? event[0] : event;
+        const property = data.property || data;
 
         const { value: formValues } = await Swal.fire({
             title: '<i class="fas fa-edit me-2"></i>Modifier la propriété',
             html: `
                 <div class="text-start">
                     <div class="mb-3">
-                        <label class="form-label">Titre <span class="text-danger">*</span></label>
-                        <input id="swal-title" class="swal2-input" value="${property.title}" required>
+                        <label class="form-label fw-bold">Titre <span class="text-danger">*</span></label>
+                        <input id="swal-title" class="swal2-input w-100" value="${property.title || ''}" required>
                     </div>
 
                     <div class="mb-3">
-                        <label class="form-label">Prix ($) <span class="text-danger">*</span></label>
-                        <input id="swal-price" type="number" class="swal2-input" value="${property.price}" required>
+                        <label class="form-label fw-bold">Prix (Ar) <span class="text-danger">*</span></label>
+                        <input id="swal-price" type="number" class="swal2-input w-100" value="${property.price || ''}" required>
                     </div>
 
                     <div class="mb-3">
-                        <label class="form-label">Description</label>
-                        <textarea id="swal-description" class="swal2-textarea" rows="3">${property.description || ''}</textarea>
+                        <label class="form-label fw-bold">Description</label>
+                        <textarea id="swal-description" class="swal2-textarea w-100" rows="3">${property.description || ''}</textarea>
                     </div>
 
                     <div class="row">
                         <div class="col-6 mb-3">
-                            <label class="form-label">Type</label>
-                            <select id="swal-type" class="swal2-select">
+                            <label class="form-label fw-bold">Type</label>
+                            <select id="swal-type" class="swal2-select w-100">
                                 <option value="appartement" ${property.type === 'appartement' ? 'selected' : ''}>Appartement</option>
                                 <option value="maison" ${property.type === 'maison' ? 'selected' : ''}>Maison</option>
                                 <option value="terrain" ${property.type === 'terrain' ? 'selected' : ''}>Terrain</option>
+                                <option value="bureau" ${property.type === 'bureau' ? 'selected' : ''}>Bureau</option>
+                                <option value="commerce" ${property.type === 'commerce' ? 'selected' : ''}>Commerce</option>
                             </select>
                         </div>
                         <div class="col-6 mb-3">
-                            <label class="form-label">Transaction</label>
-                            <select id="swal-transaction" class="swal2-select">
+                            <label class="form-label fw-bold">Transaction</label>
+                            <select id="swal-transaction" class="swal2-select w-100">
                                 <option value="vente" ${property.transaction_type === 'vente' ? 'selected' : ''}>Vente</option>
                                 <option value="location" ${property.transaction_type === 'location' ? 'selected' : ''}>Location</option>
                             </select>
@@ -1553,44 +1515,44 @@ window.addEventListener('scroll', function() {
 
                     <div class="row">
                         <div class="col-4 mb-3">
-                            <label class="form-label">Surface (m²)</label>
-                            <input id="swal-surface" type="number" class="swal2-input" value="${property.surface || ''}" placeholder="Surface">
+                            <label class="form-label fw-bold">Surface (m²)</label>
+                            <input id="swal-surface" type="number" class="swal2-input w-100" value="${property.surface || ''}" placeholder="Surface">
                         </div>
                         <div class="col-4 mb-3">
-                            <label class="form-label">Pièces</label>
-                            <input id="swal-rooms" type="number" class="swal2-input" value="${property.rooms || ''}" placeholder="Pièces">
+                            <label class="form-label fw-bold">Chambres</label>
+                            <input id="swal-rooms" type="number" class="swal2-input w-100" value="${property.rooms || ''}" placeholder="Chambres">
                         </div>
                         <div class="col-4 mb-3">
-                            <label class="form-label">Étages</label>
-                            <input id="swal-floors" type="number" class="swal2-input" value="${property.floors || ''}" placeholder="Étages">
+                            <label class="form-label fw-bold">Étages</label>
+                            <input id="swal-floors" type="number" class="swal2-input w-100" value="${property.floors || ''}" placeholder="Étages">
                         </div>
                     </div>
 
                     <div class="mb-3">
-                        <label class="form-label">Adresse</label>
-                        <input id="swal-address" class="swal2-input" value="${property.address || ''}" placeholder="Adresse">
+                        <label class="form-label fw-bold">Adresse</label>
+                        <input id="swal-address" class="swal2-input w-100" value="${property.address || ''}" placeholder="Adresse complète">
                     </div>
 
                     <div class="row">
                         <div class="col-6 mb-3">
-                            <label class="form-label">Ville</label>
-                            <input id="swal-city" class="swal2-input" value="${property.city || ''}" placeholder="Ville">
+                            <label class="form-label fw-bold">Ville</label>
+                            <input id="swal-city" class="swal2-input w-100" value="${property.city || ''}" placeholder="Ville">
                         </div>
                         <div class="col-6 mb-3">
-                            <label class="form-label">Pays</label>
-                            <input id="swal-country" class="swal2-input" value="${property.country || ''}" placeholder="Pays">
+                            <label class="form-label fw-bold">Pays</label>
+                            <input id="swal-country" class="swal2-input w-100" value="${property.country || ''}" placeholder="Pays">
                         </div>
                     </div>
 
-                    <div class="form-check">
+                    <div class="form-check mb-3">
                         <input class="form-check-input" type="checkbox" id="swal-parking" ${property.parking ? 'checked' : ''}>
-                        <label class="form-check-label" for="swal-parking">
+                        <label class="form-check-label fw-bold" for="swal-parking">
                             Parking disponible
                         </label>
                     </div>
                 </div>
             `,
-            width: '800px',
+            width: '900px',
             showCancelButton: true,
             confirmButtonText: '<i class="fas fa-save me-2"></i>Enregistrer',
             cancelButtonText: '<i class="fas fa-times me-2"></i>Annuler',
@@ -1602,15 +1564,23 @@ window.addEventListener('scroll', function() {
                 htmlContainer: 'text-start'
             },
             preConfirm: () => {
+                const title = document.getElementById('swal-title').value;
+                const price = document.getElementById('swal-price').value;
+
+                if (!title || !price) {
+                    Swal.showValidationMessage('Le titre et le prix sont obligatoires');
+                    return false;
+                }
+
                 return {
-                    title: document.getElementById('swal-title').value,
-                    price: document.getElementById('swal-price').value,
+                    title: title,
+                    price: price,
                     description: document.getElementById('swal-description').value,
                     type: document.getElementById('swal-type').value,
                     transaction_type: document.getElementById('swal-transaction').value,
-                    surface: document.getElementById('swal-surface').value,
-                    rooms: document.getElementById('swal-rooms').value,
-                    floors: document.getElementById('swal-floors').value,
+                    surface: document.getElementById('swal-surface').value || null,
+                    rooms: document.getElementById('swal-rooms').value || null,
+                    floors: document.getElementById('swal-floors').value || null,
                     address: document.getElementById('swal-address').value,
                     city: document.getElementById('swal-city').value,
                     country: document.getElementById('swal-country').value,
@@ -1620,45 +1590,93 @@ window.addEventListener('scroll', function() {
         });
 
         if (formValues) {
-            // Mettre à jour les propriétés Livewire
-            $wire.set('title', formValues.title);
-            $wire.set('price', formValues.price);
-            $wire.set('description', formValues.description);
-            $wire.set('type', formValues.type);
-            $wire.set('transaction_type', formValues.transaction_type);
-            $wire.set('surface', formValues.surface);
-            $wire.set('rooms', formValues.rooms);
-            $wire.set('floors', formValues.floors);
-            $wire.set('address', formValues.address);
-            $wire.set('city', formValues.city);
-            $wire.set('country', formValues.country);
-            $wire.set('parking', formValues.parking);
+            console.log('✅ Formulaire soumis avec:', formValues);
 
-            // Appeler la méthode update
-            $wire.call('update');
+            try {
+                // CORRECTION: Utilisation correcte avec gestion d'erreur
+                $wire.title = formValues.title;
+                $wire.price = formValues.price;
+                $wire.description = formValues.description;
+                $wire.type = formValues.type;
+                $wire.transaction_type = formValues.transaction_type;
+                $wire.surface = formValues.surface;
+                $wire.rooms = formValues.rooms;
+                $wire.floors = formValues.floors;
+                $wire.address = formValues.address;
+                $wire.city = formValues.city;
+                $wire.country = formValues.country;
+                $wire.parking = formValues.parking;
+
+                // Appel avec gestion d'erreur
+                setTimeout(() => {
+                    console.log('🔄 Appel de update()');
+                    $wire.call('update').then(() => {
+                        console.log('✅ Mise à jour terminée avec succès');
+                    }).catch((error) => {
+                        console.error('❌ Erreur lors de la mise à jour:', error);
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Erreur',
+                            text: 'Une erreur est survenue lors de la mise à jour'
+                        });
+                    });
+                }, 100);
+            } catch (error) {
+                console.error('❌ Exception:', error);
+            }
+        } else {
+            console.log('❌ Modification annulée');
         }
     });
 
     // Toast notifications
     $wire.on('show-toast', (event) => {
+        console.log('📢 show-toast reçu:', event);
+
+        const data = Array.isArray(event) ? event[0] : event;
+
         const notyf = new Notyf({
             duration: 5000,
             position: { x: 'right', y: 'top' },
             dismissible: true
         });
 
-        if (event.type === 'success') {
-            notyf.success(event.message);
+        if (data.type === 'success') {
+            notyf.success(data.message);
         } else {
-            notyf.error(event.message);
+            notyf.error(data.message);
         }
     });
+
+    // Écouter la fermeture de modal
+    $wire.on('close-modal', () => {
+        console.log('🚪 Fermeture des modals');
+        document.querySelectorAll('.modal.show').forEach(modal => {
+            const modalInstance = bootstrap.Modal.getInstance(modal);
+            if (modalInstance) {
+                modalInstance.hide();
+            }
+        });
+    });
+
+    // Gestion des erreurs Livewire globales
+    document.addEventListener('livewire:exception', (event) => {
+        console.error('🚨 Erreur Livewire globale:', event.detail);
+        Swal.fire({
+            icon: 'error',
+            title: 'Erreur',
+            text: 'Une erreur est survenue. Veuillez réessayer.'
+        });
+    });
+
+    // Debug au chargement
+    console.log('✅ Tous les listeners Livewire sont configurés');
 </script>
 @endscript
 
 <style>
     .swal-wide {
-        max-width: 800px !important;
+        max-width: 900px !important;
     }
     .swal2-html-container {
         overflow: visible !important;
@@ -1666,9 +1684,38 @@ window.addEventListener('scroll', function() {
     .swal2-input, .swal2-textarea, .swal2-select {
         width: 100% !important;
         margin: 0 !important;
-        padding: 0.5rem !important;
+        padding: 0.75rem !important;
+        border: 1px solid #ced4da !important;
+        border-radius: 0.375rem !important;
+        font-size: 1rem !important;
+    }
+    .swal2-input:focus, .swal2-textarea:focus, .swal2-select:focus {
+        border-color: #ff6b35 !important;
+        box-shadow: 0 0 0 0.2rem rgba(255, 107, 53, 0.25) !important;
+    }
+    .form-label {
+        margin-bottom: 0.5rem;
+        display: block;
+    }
+    .fw-bold {
+        font-weight: 600 !important;
+    }
+    .text-danger {
+        color: #dc3545 !important;
+    }
+    .form-check {
+        padding-left: 1.5rem;
+    }
+    .form-check-input {
+        width: 1.25rem;
+        height: 1.25rem;
+        margin-top: 0.25rem;
+    }
+    .form-check-label {
+        padding-left: 0.5rem;
     }
 </style>
+
 </body>
 </html>
 
