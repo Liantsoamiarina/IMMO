@@ -1179,6 +1179,22 @@ html { scroll-behavior: smooth; }
     </div>
   </div>
 </section>
+{{-- Message de succès --}}
+@if(session('success'))
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            Swal.fire({
+                icon: 'success',
+                title: 'Félicitations !',
+                text: "{{ session('success') }}",
+                confirmButtonText: 'Super !',
+                confirmButtonColor: '#28a745',
+                timer: 5000,
+                timerProgressBar: true
+            });
+        });
+    </script>
+@endif
 
 
 <!-- PANEL DE DEBUG - À RETIRER EN PRODUCTION -->
@@ -1250,38 +1266,7 @@ html { scroll-behavior: smooth; }
   </div>
 </div>
 
-{{-- <!-- Modal Delete -->
-<div class="modal fade" id="deletePropertyModal" tabindex="-1" aria-hidden="true" wire:ignore.self>
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header bg-danger text-white">
-        <h5 class="modal-title"><i class="fas fa-exclamation-triangle me-2"></i>Supprimer le bien</h5>
-        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body text-center">
-        @if($deletingProperty)
-          <div class="mb-3">
-            <i class="fas fa-trash-alt text-danger" style="font-size: 3rem;"></i>
-          </div>
-          <h6 class="mb-3">Êtes-vous sûr de vouloir supprimer ce bien ?</h6>
-          <p class="text-muted mb-4">
-            "<strong>{{ $deletingProperty->title }}</strong>"<br>
-            <small>Cette action est irréversible et supprimera toutes les images associées.</small>
-          </p>
-          <div class="d-flex gap-2 justify-content-center">
-            <button type="button" class="btn btn-danger" wire:click="delete" wire:loading.attr="disabled">
-              <span wire:loading.remove><i class="fas fa-trash me-2"></i>Supprimer définitivement</span>
-              <span wire:loading><i class="fas fa-spinner fa-spin me-2"></i>Suppression...</span>
-            </button>
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-              <i class="fas fa-times me-2"></i>Annuler
-            </button>
-          </div>
-        @endif
-      </div>
-    </div>
-  </div>
-</div> --}}
+
 
 <!-- Modal Quick View -->
 <div class="modal fade" id="quickViewModal" tabindex="-1" aria-hidden="true">

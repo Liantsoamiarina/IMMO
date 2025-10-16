@@ -88,4 +88,33 @@ class Property extends Model
     {
         return $query->where('type', $type);
     }
+
+     /**
+     * Formater le prix en Ariary
+     */
+    public function getFormattedPriceAttribute()
+    {
+        return number_format($this->price, 0, ',', ' ') . ' Ar';
+    }
+
+    /**
+     * Formater le prix en Ariary avec abréviation (M pour millions, Mrd pour milliards)
+     */
+    public function getFormattedPriceShortAttribute()
+    {
+        $price = $this->price;
+
+        if ($price >= 1000000000) {
+            // Milliards
+            return number_format($price / 1000000000, 2, ',', ' ') . ' Mrd Ar';
+        } elseif ($price >= 1000000) {
+            // Millions
+            return number_format($price / 1000000, 2, ',', ' ') . ' M Ar';
+        } elseif ($price >= 1000) {
+            // Milliers
+            return number_format($price / 1000, 0, ',', ' ') . ' K Ar';
+        } else {
+            return number_format($price, 0, ',', ' ') . ' Ar';
+        }
+    }
 }

@@ -37,22 +37,22 @@ $pageTitle ="Immo | Acceuil";
         </div>
         <div class="col-lg-5">
           <div class="section-heading">
-            <h6>| Featured</h6>
-            <h2>Best Appartment &amp; Sea view</h2>
+            <h6>| Mis en avant</h6>
+            <h2>Meilleur appartement &amp; vue sur la mer</h2>
           </div>
           <div class="accordion" id="accordionExample">
             <div class="accordion-item">
               <h2 class="accordion-header" id="headingOne">
                 <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                  Best useful links ?
+                  A la une?
                 </button>
               </h2>
               <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                 <div class="accordion-body">
-                Get <strong>the best villa</strong> website template in HTML CSS and Bootstrap for your business. TemplateMo provides you the <a href="https://www.google.com/search?q=best+free+css+templates" target="_blank">best free CSS templates</a> in the world. Please tell your friends about it.</div>
+                Profitez <strong>d’un cadre unique avec une vue imprenable sur la mer</strong> Des appartements modernes alliant confort, design et emplacement de rêve.</div>
               </div>
             </div>
-            <div class="accordion-item">
+            {{-- <div class="accordion-item">
               <h2 class="accordion-header" id="headingTwo">
                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                   How does this work ?
@@ -75,7 +75,7 @@ $pageTitle ="Immo | Acceuil";
                   Dolor <strong>almesit amet</strong>, consectetur adipiscing elit, sed doesn't eiusmod tempor incididunt ut labore consectetur <code>adipiscing</code> elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                 </div>
               </div>
-            </div>
+            </div> --}}
           </div>
         </div>
         <div class="col-lg-3">
@@ -607,103 +607,152 @@ $pageTitle ="Immo | Acceuil";
         <div class="col-lg-4 offset-lg-4">
           <div class="section-heading text-center">
             <h6>| Propriétés</h6>
-            <h2>Nous fournissons la meilleure propriété que vous aimerez</h2>
+            <h2>Fraîchement ajoutées.</h2>
           </div>
         </div>
       </div>
-      <div class="row">
-        @foreach ($properties as $property )
+<div class="row">
+  @foreach ($properties as $property)
+  <div class="col-lg-4 col-md-6">
+    <div class="item property-card" style="cursor: pointer; transition: all 0.3s ease;"
+         onclick="window.location.href='{{ route('properties.show', $property->id) }}'">
+      <!-- Image avec badges superposés -->
+      <div style="position: relative;">
+        @if($property->images->count() > 0)
+          <img src="{{ Storage::url($property->images->first()->image_path) }}"
+               alt="{{ $property->title }}"
+               style="width: 100%; height: 200px; object-fit: cover;">
+        @else
+          <div class="no-image-placeholder" style="height: 200px; background: #f8f9fa; display: flex; align-items: center; justify-content: center;">
+            <i class="fa fa-home fa-2x text-muted"></i>
+          </div>
+        @endif
 
+        <!-- Badge agence superposé sur l'image (en haut à gauche) -->
+        @if($property->user)
+          <div style="position: absolute; top: 10px; left: 10px; background: linear-gradient(135deg, #ff6b35 0%, #ff8c42 100%); color: white; padding: 6px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; box-shadow: 0 4px 10px rgba(255, 107, 53, 0.4);">
+            <i class="fa fa-user-tie"></i> {{ $property->user->name }}
+          </div>
+        @endif
 
-        <div class="col-lg-4 col-md-6">
-          <div class="item">
-  @if($property->images->count() > 0)
-                  <img src="{{ Storage::url($property->images->first()->image_path) }}"
-                       alt="{{ $property->title }}"
-                       style="width: 100%; height: 200px; object-fit: cover;">
-                  @if($property->images->count() > 1)
-                    <div class="image-count-badge">
-                      <i class="fa fa-images"></i> {{ $property->images->count() }}
-                    </div>
-                  @endif
-                @else
-                  <div class="no-image-placeholder" style="height: 200px; background: #f8f9fa; display: flex; align-items: center; justify-content: center;">
-                    <i class="fa fa-home fa-2x text-muted"></i>
-                  </div>
-                @endif
-            <span class="category">{{ $property->title }}</span>
-            <h6>{{ $property->price }}</h6>
-            <h4><a href="property-details.html">{{ $property->address.','.$property->city }}</a></h4>
-            <ul>
-              <li>Bedrooms: <span>8</span></li>
-              <li>Bathrooms: <span>8</span></li>
-              <li>Area: <span>545m2</span></li>
-              <li>Floor: <span>3</span></li>
-              <li>Parking: <span>6 spots</span></li>
-            </ul>
-            <div class="main-button">
-              <a href="property-details.html">Rent Now</a>
-            </div>
+        <!-- Badge type de transaction (en bas à gauche) -->
+        @if($property->transaction_type)
+          <div style="position: absolute; bottom: 10px; left: 10px; background: {{ $property->transaction_type == 'vente' ? 'linear-gradient(135deg, #28a745 0%, #20c997 100%)' : 'linear-gradient(135deg, #007bff 0%, #0dcaf0 100%)' }}; color: white; padding: 6px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; box-shadow: 0 4px 10px rgba(0,0,0,0.3); text-transform: uppercase;">
+            <i class="fa {{ $property->transaction_type == 'vente' ? 'fa-tag' : 'fa-key' }}"></i>
+            {{ $property->transaction_type == 'vente' ? 'À Vendre' : 'À Louer' }}
           </div>
-        </div>
-@endforeach
-        {{-- <div class="col-lg-4 col-md-6">
-          <div class="item">
-            <a href="property-details.html"><img src="assets/images/property-04.jpg" alt=""></a>
-            <span class="category">Apartment</span>
-            <h6>$584.500</h6>
-            <h4><a href="property-details.html">12 New Street Miami, OR 12650</a></h4>
-            <ul>
-              <li>Bedrooms: <span>4</span></li>
-              <li>Bathrooms: <span>3</span></li>
-              <li>Area: <span>125m2</span></li>
-              <li>Floor: <span>25th</span></li>
-              <li>Parking: <span>2 cars</span></li>
-            </ul>
-            <div class="main-button">
-              <a href="property-details.html">Schedule a visit</a>
-            </div>
+        @endif
+
+        <!-- Compteur d'images (en haut à droite) -->
+        @if($property->images->count() > 1)
+          <div class="image-count-badge" style="position: absolute; top: 10px; right: 10px; background: rgba(0, 0, 0, 0.7); color: white; padding: 5px 10px; border-radius: 5px; font-size: 0.8rem; backdrop-filter: blur(5px);">
+            <i class="fa fa-images"></i> {{ $property->images->count() }}
           </div>
-        </div>
-        <div class="col-lg-4 col-md-6">
-          <div class="item">
-            <a href="property-details.html"><img src="assets/images/property-05.jpg" alt=""></a>
-            <span class="category">Penthouse</span>
-            <h6>$925.600</h6>
-            <h4><a href="property-details.html">34 Beach Street Miami, OR 42680</a></h4>
-            <ul>
-              <li>Bedrooms: <span>4</span></li>
-              <li>Bathrooms: <span>4</span></li>
-              <li>Area: <span>180m2</span></li>
-              <li>Floor: <span>38th</span></li>
-              <li>Parking: <span>2 cars</span></li>
-            </ul>
-            <div class="main-button">
-              <a href="property-details.html">Schedule a visit</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-4 col-md-6">
-          <div class="item">
-            <a href="property-details.html"><img src="assets/images/property-06.jpg" alt=""></a>
-            <span class="category">Modern Condo</span>
-            <h6>$450.000</h6>
-            <h4><a href="property-details.html">22 New Street Portland, OR 16540</a></h4>
-            <ul>
-              <li>Bedrooms: <span>3</span></li>
-              <li>Bathrooms: <span>2</span></li>
-              <li>Area: <span>165m2</span></li>
-              <li>Floor: <span>26th</span></li>
-              <li>Parking: <span>3 cars</span></li>
-            </ul>
-            <div class="main-button">
-              <a href="property-details.html">Schedule a visit</a>
-            </div>
-          </div>
-        </div> --}}
+        @endif
+      </div>
+
+      <!-- Catégorie/Titre -->
+      <span class="category">{{ $property->title }}</span>
+
+      <!-- Prix en Ariary -->
+      <h6>{{ $property->formatted_price_short }}</h6>
+
+      <!-- Adresse -->
+      <h4>
+        <a href="{{ route('properties.show', $property->id) }}" onclick="event.stopPropagation();">
+          {{ $property->address . ', ' . $property->city }}
+        </a>
+      </h4>
+
+      <!-- Caractéristiques -->
+      <ul>
+        <li>Chambres: <span>{{ $property->rooms ?? 'N/A' }}</span></li>
+        <li>Salles de bain: <span>{{ $property->bathrooms ?? 'N/A' }}</span></li>
+        <li>Surface: <span>{{ $property->surface ?? 'N/A' }}m²</span></li>
+        <li>Étages: <span>{{ $property->floors ?? 'N/A' }}</span></li>
+        <li>Parking: <span>{{ $property->parking ? 'Oui' : 'Non' }}</span></li>
+      </ul>
+
+      <!-- Bouton d'action -->
+      <div class="main-button">
+        <a href="{{ route('properties.show', $property->id) }}" onclick="event.stopPropagation();">
+          {{ $property->transaction_type == 'location' ? 'Louer maintenant' : 'Acheter maintenant' }}
+        </a>
       </div>
     </div>
   </div>
+  @endforeach
+</div>
+
+<style>
+/* Effet hover sur la carte */
+.property-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15) !important;
+}
+
+/* Éviter le double soulignement au survol */
+.property-card h4 a {
+  text-decoration: none;
+}
+
+.property-card h4 a:hover {
+  color: #ff6b35;
+}
+</style>
+
+<script>
+// Alternative JavaScript si vous préférez
+document.addEventListener('DOMContentLoaded', function() {
+  // Cette section est optionnelle, le onclick inline suffit
+  const propertyCards = document.querySelectorAll('.property-card');
+
+  propertyCards.forEach(card => {
+    card.addEventListener('click', function(e) {
+      // Si le clic est sur un lien, ne rien faire (laisser le lien fonctionner)
+      if (e.target.tagName === 'A' || e.target.closest('a')) {
+        return;
+      }
+
+      // Sinon, rediriger vers les détails
+      const url = this.getAttribute('onclick').match(/'([^']+)'/)[1];
+      window.location.href = url;
+    });
+  });
+});
+</script>
+
+<style>
+.item {
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+/* Effet hover sur tous les badges */
+.item:hover [style*="position: absolute"] {
+  transform: scale(1.05);
+  transition: transform 0.3s ease;
+}
+
+/* Animation d'apparition des badges */
+[style*="position: absolute"] {
+  animation: fadeInBadge 0.5s ease-in-out;
+}
+
+@keyframes fadeInBadge {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+</style>
+    </div>
+  </div>
+
 
    {{-- Abonnement --}}
       <div class="section">
@@ -881,7 +930,7 @@ $pageTitle ="Immo | Acceuil";
         <div class="col-lg-4 offset-lg-4">
           <div class="section-heading text-center">
             <h6>| Contact Us</h6>
-            <h2>Get In Touch With Our Agents</h2>
+            <h2>Nos conseillers sont à votre écoute</h2>
           </div>
         </div>
       </div>
@@ -899,13 +948,13 @@ $pageTitle ="Immo | Acceuil";
             <div class="col-lg-6">
               <div class="item phone">
                 <img src="assets/images/phone-icon.png" alt="" style="max-width: 52px;">
-                <h6>010-020-0340<br><span>Phone Number</span></h6>
+                <h6>038 57 564 24<br><span>Infoline</span></h6>
               </div>
             </div>
             <div class="col-lg-6">
               <div class="item email">
                 <img src="assets/images/email-icon.png" alt="" style="max-width: 52px;">
-                <h6>info@villa.co<br><span>Business Email</span></h6>
+                <h6>emmotsoa261@gmail.com<br></h6>
               </div>
             </div>
           </div>

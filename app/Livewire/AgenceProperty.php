@@ -98,17 +98,17 @@ public function loadProperties()
         $this->images = array_values($this->images);
     }
 
-    public function save()
-    {
-        $this->validate();
+public function save()
+{
+    $this->validate();
 
-        if ($this->type === 'terrain') {
-            $this->rooms = null;
-            $this->floors = null;
-            $this->parking = false;
-        }
+    if ($this->type === 'terrain') {
+        $this->rooms = null;
+        $this->floors = null;
+        $this->parking = false;
+    }
 
-        // Création de la propriété
+    try {
         $property = Auth::user()->properties()->create([
             'title'             => $this->title,
             'description'       => $this->description,
@@ -124,26 +124,33 @@ public function loadProperties()
             'country'           => $this->country,
         ]);
 
-        // Sauvegarde des images
-        foreach ($this->images as $image) {
-            $path = $image->store('properties', 'public');
-            PropertyImage::create([
-                'property_id' => $property->id,
-                'image_path'  => $path,
-            ]);
+        if ($this->images && count($this->images) > 0) {
+            foreach ($this->images as $image) {
+                $path = $image->store('properties', 'public');
+                PropertyImage::create([
+                    'property_id' => $property->id,
+                    'image_path'  => $path,
+                ]);
+            }
         }
 
-        // Recharger les propriétés
-        $this->loadProperties();
+        // Message dans session
+        session()->flash('success', 'Propriété "' . $property->title . '" créée avec succès !');
 
-        // Reset et notifications
         $this->resetForm();
-        $this->dispatch('close-modal');
+
+        // ✅ Redirection avec redirectRoute
+        $this->redirectRoute('home.agence');
+
+    } catch (\Exception $e) {
+        \Log::error('Erreur création propriété: ' . $e->getMessage());
+
         $this->dispatch('show-toast', [
-            'type' => 'success',
-            'message' => 'Propriété créée avec succès!'
+            'type' => 'error',
+            'message' => 'Erreur lors de la création: ' . $e->getMessage()
         ]);
     }
+}
 
     public function edit($id)
     {

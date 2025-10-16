@@ -14,11 +14,62 @@ class PropertyController extends Controller
     /**
      * Afficher la liste de toutes les propriétés
      */
-    public function index()
+   public function show($id)
     {
-        $properties = Property::with(['images', 'user'])
-            ->latest()
-            ->paginate(12);
+        // Charger la propriété avec ses relations
+        $property = Property::with(['user', 'images'])
+            ->findOrFail($id);
+
+        // Incrémenter le compteur de vues (commenté car colonne non existante)
+        // $property->increment('views');
+
+        // Récupérer des propriétés similaires
+        $similarProperties = Property::with(['images'])
+            ->where('id', '!=', $property->id)
+            ->where(function($query) use ($property) {
+                $query->where('city', $property->city)
+                      ->where('transaction_type', $property->transaction_type);
+            })
+            ->orWhere(function($query) use ($property) {
+                $query->where('type', $property->type)
+                      ->where('transaction_type', $property->transaction_type)
+                      ->where('id', '!=', $property->id);
+            })
+            ->limit(3)
+            ->get();
+
+        return view('propertiesDetails', compact('property', 'similarProperties'));
+    }
+
+    /**
+     * Liste de toutes les propriétés
+     */
+    public function index(Request $request)
+    {
+        $query = Property::with(['user', 'images']);
+
+        // Filtres
+        if ($request->has('city') && $request->city) {
+            $query->where('city', $request->city);
+        }
+
+        if ($request->has('transaction_type') && $request->transaction_type) {
+            $query->where('transaction_type', $request->transaction_type);
+        }
+
+        if ($request->has('property_type') && $request->property_type) {
+            $query->where('type', $request->property_type);
+        }
+
+        if ($request->has('min_price') && $request->min_price) {
+            $query->where('price', '>=', $request->min_price);
+        }
+
+        if ($request->has('max_price') && $request->max_price) {
+            $query->where('price', '<=', $request->max_price);
+        }
+
+        $properties = $query->latest()->paginate(12);
 
         return view('home', compact('properties'));
     }
@@ -100,21 +151,6 @@ class PropertyController extends Controller
     /**
      * Afficher les détails d'une propriété
      */
-    public function show(Property $property)
-    {
-        // Charger les relations
-        $property->load(['images', 'user']);
-
-        // Propriétés similaires
-        $similarProperties = Property::with('images')
-            ->where('id', '!=', $property->id)
-            ->where('type', $property->type)
-            ->where('transaction_type', $property->transaction_type)
-            ->limit(3)
-            ->get();
-
-        return view('properties.show', compact('property', 'similarProperties'));
-    }
 
     /**
      * Afficher le formulaire de modification

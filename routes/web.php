@@ -4,10 +4,10 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\LeadController;
 use App\Http\Controllers\Admincontroller;
 use App\Http\Controllers\OwnerController;
 use App\Http\Controllers\PropertyController;
-use App\Http\Controllers\Admin\DashboardController;
 
 
 /*
@@ -23,10 +23,14 @@ use App\Http\Controllers\Admin\DashboardController;
 
 Route::get('/',[PropertyController::class,"index"])->name("homepage");
 Route::get('/contact',[HomeController::class,"contact"])->name("contact");
-Route::get('/homepropertie',[HomeController::class,"propertie"])->name("homepropertie");
-Route::get('/details',[HomeController::class,"details"])->name("details");
+// Route::get('/homepropertie',[HomeController::class,"propertie"])->name("homepropertie");
+// Route::get('/details',[HomeController::class,"details"])->name("details");
 Route::get('/Rent',[HomeController::class,"RentDetails"])->name("Rent");
 Route::get('/Abonnement',[HomeController::class,"Abonnement"])->name("Abonnement");
+
+//affichage detail
+Route::get('/properties/{id}', [PropertyController::class, 'show'])->name('properties.show');
+Route::get('/properties', [PropertyController::class, 'index'])->name('properties.index');
 
 // Admincontroller
 Route::get('/admin', [Admincontroller::class, 'admin'])->name('admin.dashboard');
@@ -85,6 +89,7 @@ Route::get('/agenceproperty',[PropertyController::class,'Agenceproperty'])->name
 
 use App\Http\Controllers\ActivationController;
 use App\Http\Controllers\SubscriptionController;
+use App\Http\Controllers\Admin\DashboardController;
 
 // Routes d'activation d'abonnement
 Route::middleware(['auth'])->group(function () {
@@ -96,6 +101,15 @@ Route::middleware(['auth'])->group(function () {
 });
 
 
+
+// Routes pour les leads (remplacez les routes demandes)
+Route::middleware(['auth'])->group(function () {
+    Route::get('/leads/{property}/create', [LeadController::class, 'create'])->name('leads.create');
+    Route::post('/leads/{property}/store', [LeadController::class, 'store'])->name('leads.store');
+    Route::get('/mes-leads', [LeadController::class, 'index'])->name('leads.index');
+    Route::post('/leads/{lead}/contacted', [LeadController::class, 'markAsContacted'])->name('leads.markAsContacted');
+    Route::post('/leads/{lead}/status', [LeadController::class, 'updateStatus'])->name('leads.updateStatus');
+});
 
 // Routes Admin pour gérer les abonnements
 Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {

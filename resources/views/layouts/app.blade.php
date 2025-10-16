@@ -17,6 +17,8 @@
     <link rel="stylesheet"href="{{ asset("assets/css/swiper-bundle.min.css") }}"/>
    {{-- popup login --}}
 <link rel="stylesheet" href="{{ asset("assets/notyf/notyf.min.css") }}">
+<!-- Animate.css -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 
 
   </head>
@@ -69,9 +71,9 @@
 
                     <ul class="nav">
                       <li><a href="{{ route("homepage") }}" class="{{ Route::is("homepage") ? 'active' : '' }}">Accueil</a></li>
-                      <li><a href="{{ route("homepropertie") }}" class="{{ Route::is("homeproperties") ? 'active ' : '' }}">Propriétés</a></li>
-                      <li><a href="{{ route("details") }}" class="{{ Route::is("details") ? 'active':'' }}">Property Details</a></li>
-                      <li><a href="{{ route("Rent") }}" class="{{ Route::is("Rent") ? 'active':'' }}">Rent Details</a></li>
+                      {{-- <li><a href="{{ route("homepropertie") }}" class="{{ Route::is("homeproperties") ? 'active ' : '' }}">Propriétés</a></li> --}}
+                      {{-- <li><a href="{{ route("details") }}" class="{{ Route::is("details") ? 'active':'' }}">Property Details</a></li> --}}
+                      {{-- <li><a href="{{ route("Rent") }}" class="{{ Route::is("Rent") ? 'active':'' }}">Rent Details</a></li> --}}
                         <li>
                         <a href="#Abonnement" class="">Abonnement </a></li>
                         <li>

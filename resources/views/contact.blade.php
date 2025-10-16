@@ -8,8 +8,8 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-12">
-          <span class="breadcrumb"><a href="#">Home</a>  /  Contact Us</span>
-          <h3>Contact Us</h3>
+          <span class="breadcrumb"><a href="#">Home</a>  /  Contact</span>
+          <h3>Contact </h3>
         </div>
       </div>
     </div>
@@ -20,21 +20,21 @@
       <div class="row">
         <div class="col-lg-6">
           <div class="section-heading">
-            <h6>| Contact Us</h6>
-            <h2>Get In Touch With Our Agents</h2>
+            <h6>| Contact </h6>
+            <h2>Prenez contact avec nos agents</h2>
           </div>
-          <p>When you really need to download free CSS templates, please remember our website TemplateMo. Also, tell your friends about our website. Thank you for visiting. There is a variety of Bootstrap HTML CSS templates on our website. If you need more information, please contact us.</p>
+          <p>Parce que chaque propriété est unique, nos agents mettent à votre service un savoir-faire alliant discrétion, professionnalisme et excellence. De la recherche du bien parfait à la finalisation de la vente, nous vous offrons un accompagnement sur mesure et des conseils avisés. Faites confiance à notre équipe pour valoriser votre patrimoine et vous ouvrir les portes des plus belles opportunités immobilières.</p>
           <div class="row">
             <div class="col-lg-12">
               <div class="item phone">
                 <img src="assets/images/phone-icon.png" alt="" style="max-width: 52px;">
-                <h6>010-020-0340<br><span>Phone Number</span></h6>
+                <h6>038 57 564 24<br><span>Infoline</span></h6>
               </div>
             </div>
             <div class="col-lg-12">
               <div class="item email">
                 <img src="assets/images/email-icon.png" alt="" style="max-width: 52px;">
-                <h6>info@villa.co<br><span>Business Email</span></h6>
+                <h6>emmotsoa261@gmail.com<br><span>E-mail</span></h6>
               </div>
             </div>
           </div>
@@ -83,15 +83,7 @@
     </div>
   </div>
 
-  <footer>
-    <div class="container">
-      <div class="col-lg-12">
-        <p>Copyright © 2048 Villa Agency Co., Ltd. All rights reserved.
 
-        Design: <a rel="nofollow" href="https://templatemo.com" target="_blank">TemplateMo</a></p>
-      </div>
-    </div>
-  </footer>
 
   <!-- Scripts -->
   <!-- Bootstrap core JavaScript -->
