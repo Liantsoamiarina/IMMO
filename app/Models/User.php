@@ -16,6 +16,9 @@ class User extends Authenticatable
         'email',
         'password',
         'role',
+        'phone',
+        'status',
+        'last_login_at',
     ];
 
     protected $hidden = [
@@ -25,6 +28,7 @@ class User extends Authenticatable
 
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'last_login_at' => 'datetime',
         'password' => 'hashed',
     ];
 
@@ -89,7 +93,6 @@ class User extends Authenticatable
 
         // Vérifier l'abonnement actif
         $subscription = $this->activeSubscription;
-
         if (!$subscription || !$subscription->isActive()) {
             return false;
         }
@@ -106,7 +109,6 @@ class User extends Authenticatable
     public function getRemainingPosts(): ?int
     {
         $subscription = $this->activeSubscription;
-
         if (!$subscription || !$subscription->isActive()) {
             return 0;
         }
@@ -132,6 +134,12 @@ class User extends Authenticatable
         $this->update(['role' => 'client']);
     }
 
+    // Enregistrer la dernière connexion
+    public function updateLastLogin(): void
+    {
+        $this->update(['last_login_at' => now()]);
+    }
+
     // Scope pour filtrer les utilisateurs
     public function scopeOwners($query)
     {
@@ -151,5 +159,15 @@ class User extends Authenticatable
     public function scopeWithActiveSubscription($query)
     {
         return $query->whereHas('activeSubscription');
+    }
+
+    public function scopeActive($query)
+    {
+        return $query->where('status', 'active');
+    }
+
+    public function scopeInactive($query)
+    {
+        return $query->where('status', 'inactive');
     }
 }

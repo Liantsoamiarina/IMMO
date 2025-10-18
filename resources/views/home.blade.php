@@ -496,8 +496,8 @@ $pageTitle ="Immo | Acceuil";
       <div class="row">
         <div class="col-lg-4">
           <div class="section-heading">
-            <h6>| Best Deal</h6>
-            <h2>Find Your Best Deal Right Now!</h2>
+            <h6>| Meilleure Offre</h6>
+            <h2>Trouvez votre meilleure offre dès maintenant!</h2>
           </div>
         </div>
         <div class="col-lg-12">
@@ -534,12 +534,20 @@ $pageTitle ="Immo | Acceuil";
                       <img src="assets/images/deal-01.jpg" alt="">
                     </div>
                     <div class="col-lg-3">
-                      <h4>Extra Info About Property</h4>
-                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, do eiusmod tempor pack incididunt ut labore et dolore magna aliqua quised ipsum suspendisse.
-                      <br><br>When you need free CSS templates, you can simply type TemplateMo in any search engine website. In addition, you can type TemplateMo Portfolio, TemplateMo One Page Layouts, etc.</p>
-                      <div class="icon-button">
+                      <h4>Informations supplémentaires sur la propriété</h4>
+                      <p>
+                        Découvrez cette magnifique propriété alliant confort moderne et élégance intemporelle.
+                        Située dans un quartier calme et recherché, elle offre des espaces lumineux, une cuisine entièrement équipée,
+                        ainsi qu’un grand séjour donnant sur une terrasse ensoleillée.
+                        <br>
+                        Idéale pour une famille ou pour un investissement, cette maison se distingue par sa qualité de finition,
+                        sa proximité avec les commodités (écoles, commerces, transports) et son environnement paisible.
+                        Venez la visiter et laissez-vous séduire par son charme unique.
+                        </p>
+
+                      {{-- <div class="icon-button">
                         <a href="property-details.html"><i class="fa fa-calendar"></i> Schedule a visit</a>
-                      </div>
+                      </div> --}}
                     </div>
                   </div>
                 </div>
@@ -683,6 +691,29 @@ $pageTitle ="Immo | Acceuil";
   </div>
   @endforeach
 </div>
+      <!-- Bouton Voir Toutes les Propriétés -->
+      @if($properties->count() > 0)
+      <div class="row mt-5">
+        <div class="col-12 text-center">
+          <a href="{{ route('properties.index') }}"
+             class="btn btn-lg text-white fw-semibold shadow-lg"
+             style="background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+                    border-radius: 50px;
+                    border: none;
+                    padding: 18px 60px;
+                    font-size: 18px;
+                    text-transform: uppercase;
+                    letter-spacing: 1px;
+                    transition: all 0.3s ease;
+                    text-decoration: none;
+                    display: inline-block;">
+            <i class="fas fa-th-large me-2"></i>
+            Voir Toutes les Propriétés
+            <i class="fas fa-arrow-right ms-2"></i>
+          </a>
+        </div>
+      </div>
+      @endif
 
 <style>
 /* Effet hover sur la carte */

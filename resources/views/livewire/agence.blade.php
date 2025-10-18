@@ -5,7 +5,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>VillaAgency - Votre Partenaire Immobilier de Confiance</title>
+<title>E-MMO Espace Agence</title>
 @livewireStyles
 <!-- Bootstrap 5 CDN -->
 <link rel="stylesheet" href="{{ asset("assets/bootstrap/css/bootstrap.min.css") }}">
@@ -603,11 +603,9 @@ html { scroll-behavior: smooth; }
         <li class="nav-item">
           <a class="nav-link" href="#properties">Biens</a>
         </li>
+
         <li class="nav-item">
-          <a class="nav-link" href="#testimonials">Témoignages</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#contact">Contact</a>
+          <a class="nav-link" href="{{ route("contact") }}">Contact</a>
 
         </li>
         @if(Auth::check())
@@ -645,7 +643,7 @@ html { scroll-behavior: smooth; }
                 </div>
               </div>
             </li>
-            <li>
+            {{-- <li>
               <a class="dropdown-item" href="#profile">
                 <i class="fas fa-user me-2"></i>Mon Profil
               </a>
@@ -669,7 +667,7 @@ html { scroll-behavior: smooth; }
             <li>
               <a class="dropdown-item" href="#history">
                 <i class="fas fa-history me-2"></i>Historique
-              </a>
+              </a> --}}
             </li>
             <li><hr class="dropdown-divider"></li>
             <li>
@@ -977,9 +975,9 @@ html { scroll-behavior: smooth; }
           </div>
         </div>
       </div>
-      <div class="col-lg-6 text-center">
-        <img src="https://picsum.photos/600/500?random=house" alt="Villa de luxe" class="img-fluid rounded" style="border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.3);">
-      </div>
+      {{-- <div class="col-lg-6 text-center">
+        <img src="https://source.unsplash.com/600x500/?real-estate" alt="Villa de luxe" class="img-fluid rounded" style="border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.3);">
+      </div> --}}
     </div>
   </div>
 </section>
@@ -1023,7 +1021,7 @@ html { scroll-behavior: smooth; }
   <div class="container">
     <div class="row">
       <div class="col-lg-8 mx-auto">
-        <h2 class="section-title">Pourquoi Choisir VillaAgency ?</h2>
+        <h2 class="section-title">Pourquoi Choisir E-mmo?</h2>
         <p class="section-subtitle">
           Notre expertise, notre réseau et notre passion pour l'immobilier font de nous le partenaire idéal pour tous vos projets
         </p>
@@ -1198,9 +1196,9 @@ html { scroll-behavior: smooth; }
 
 
 <!-- PANEL DE DEBUG - À RETIRER EN PRODUCTION -->
-<div class="alert alert-info">
+{{-- <div class="alert alert-info">
     DEBUG: User {{ Auth::id() }} a {{ $properties->count() }} propriétés
-</div>
+</div> --}}
 
 
 

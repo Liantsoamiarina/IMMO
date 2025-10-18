@@ -64,84 +64,92 @@
         <div class="row">
             <div class="col-12">
                 <nav class="main-nav">
-
                     <a href="/" class="logo">
-                        <img src="{{ asset("assets/images/Logo/MMO.png") }}" alt="logo"">
+                        <img src="{{ asset("assets/images/Logo/MMO.png") }}" alt="logo">
                     </a>
-
                     <ul class="nav">
-                      <li><a href="{{ route("homepage") }}" class="{{ Route::is("homepage") ? 'active' : '' }}">Accueil</a></li>
-                      {{-- <li><a href="{{ route("homepropertie") }}" class="{{ Route::is("homeproperties") ? 'active ' : '' }}">Propriétés</a></li> --}}
-                      {{-- <li><a href="{{ route("details") }}" class="{{ Route::is("details") ? 'active':'' }}">Property Details</a></li> --}}
-                      {{-- <li><a href="{{ route("Rent") }}" class="{{ Route::is("Rent") ? 'active':'' }}">Rent Details</a></li> --}}
-                        <li>
-                        <a href="#Abonnement" class="">Abonnement </a></li>
-                        <li>
-                        <li>
-                        <a href="{{ route("contact") }}" class="{{ Route::is("contact") ? 'active' : '' }}">Contact </a></li>
+                        <li><a href="{{ route("homepage") }}" class="{{ Route::is("homepage") ? 'active' : '' }}">Accueil</a></li>
+                        <li><a href="{{ route("properties.index") }}" class="{{ Route::is("properties.index") ? 'active' : '' }}">Propriétés</a></li>
+                        <li><a href="#Abonnement">Abonnement</a></li>
+                        <li><a href="{{ route("contact") }}" class="{{ Route::is("contact") ? 'active' : '' }}">Contact</a></li>
+
+                        {{-- Lien Espace Agence (visible uniquement pour les owners) --}}
+                        @if(Auth::check() && Auth::user()->isOwner())
+                            <li>
+                                <a href="{{ route('home.agence') }}" class="{{ Route::is('home.agence') ? 'active' : '' }}">
+                                     Espace Agence
+                                </a>
+                            </li>
+                        @endif
+
                         <li>
                             @if(Auth::check())
-    {{-- popup Notyf --}}
-    <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const notyf = new Notyf({
-            duration: 5000,
-            position: { x: 'left', y: 'top' },
-            dismissible: true
-        });
-        notyf.success("Bonjour, {{ Auth::user()->name }} !");
-    });
-    </script>
-
-
-    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display:flex;">
-        @csrf
-        <button type="button" id="logout-btn" class="{{ Route::is('login.form') ? 'active' : '' }}"
-                style="background:none;border:none;padding:0;cursor:pointer;margin-top:-28px;">
-            <i class="fa fa-sign-out"></i>
-        </button>
-    </form>
-
-    {{-- SweetAlert2 --}}
-    <script src="{{ asset("assets/js/sweetalert2@11.js") }}"></script>
-    <script>
-        document.getElementById('logout-btn').addEventListener('click', function(e) {
-            e.preventDefault();
-            Swal.fire({
-                title: 'Êtes-vous sûr ?',
-                text: "Déconnecté(e) {{ Auth::user()->email }}.",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Oui, déconnecter',
-                cancelButtonText: 'Annuler'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    document.getElementById('logout-form').submit();
-                }
-            });
-        });
-    </script>
-
-@else
-
-    <a href="{{ route('login.form') }}" class="{{ Route::is('login.form') ? 'active' : '' }}">
-        Se connecter
-    </a>
-@endif
-
-                      {{-- <li><a href="#"><i class="fa fa-calendar"></i> Schedule a visit</a></li> --}}
-                  </ul>
+                                {{-- popup Notyf --}}
+                                <script>
+                                document.addEventListener('DOMContentLoaded', function() {
+                                    const notyf = new Notyf({
+                                        duration: 5000,
+                                        position: { x: 'left', y: 'top' },
+                                        dismissible: true
+                                    });
+                                    notyf.success("Bonjour, {{ Auth::user()->name }} !");
+                                });
+                                </script>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display:flex;">
+                                    @csrf
+                                    <button type="button" id="logout-btn" class="{{ Route::is('login.form') ? 'active' : '' }}"
+                                            style="background:none;border:none;padding:0;cursor:pointer;margin-top:-28px;">
+                                        <i class="fa fa-sign-out"></i>
+                                    </button>
+                                </form>
+                                {{-- SweetAlert2 --}}
+                                <script src="{{ asset("assets/js/sweetalert2@11.js") }}"></script>
+                                <script>
+                                    document.getElementById('logout-btn').addEventListener('click', function(e) {
+                                        e.preventDefault();
+                                        Swal.fire({
+                                            title: 'Êtes-vous sûr ?',
+                                            text: "Déconnecté(e) {{ Auth::user()->email }}.",
+                                            icon: 'warning',
+                                            showCancelButton: true,
+                                            confirmButtonColor: '#3085d6',
+                                            cancelButtonColor: '#d33',
+                                            confirmButtonText: 'Oui, déconnecter',
+                                            cancelButtonText: 'Annuler'
+                                        }).then((result) => {
+                                            if (result.isConfirmed) {
+                                                document.getElementById('logout-form').submit();
+                                            }
+                                        });
+                                    });
+                                </script>
+                            @else
+                                <a href="{{ route('login.form') }}" class="{{ Route::is('login.form') ? 'active' : '' }}">
+                                    Se connecter
+                                </a>
+                            @endif
+                        </li>
+                    </ul>
                     <a class='menu-trigger'>
                         <span>Menu</span>
                     </a>
-
                 </nav>
             </div>
         </div>
     </div>
-  </header>
+</header>
+
+<style>
+    /* Style optionnel pour le lien Espace Agence */
+    .nav li a i.fa-building {
+        margin-right: 5px;
+        color: #f35525;
+    }
+
+    .nav li a:hover i.fa-building {
+        color: #fff;
+    }
+</style>
 
 @yield("body")
 

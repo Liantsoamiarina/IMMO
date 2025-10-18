@@ -69,10 +69,62 @@ class PropertyController extends Controller
             $query->where('price', '<=', $request->max_price);
         }
 
-        $properties = $query->latest()->paginate(12);
+        $properties = $query->latest()->take(3)->get();
 
         return view('home', compact('properties'));
     }
+
+   public function allProperties(Request $request)
+{
+    $query = Property::with(['user', 'images']);
+
+    // Recherche textuelle
+    if ($request->filled('search')) {
+        $search = $request->search;
+        $query->where(function($q) use ($search) {
+            $q->where('title', 'LIKE', "%{$search}%")
+              ->orWhere('city', 'LIKE', "%{$search}%")
+              ->orWhere('address', 'LIKE', "%{$search}%")
+              ->orWhere('description', 'LIKE', "%{$search}%");
+        });
+    }
+
+    // Filtres simples
+    if ($request->filled('city')) {
+        $query->where('city', $request->city);
+    }
+
+    if ($request->filled('transaction_type')) {
+        $query->where('transaction_type', $request->transaction_type);
+    }
+
+    if ($request->filled('property_type')) {
+        $query->where('type', $request->property_type);
+    }
+
+    // Filtres de prix
+    if ($request->filled('min_price')) {
+        $query->where('price', '>=', $request->min_price);
+    }
+
+    if ($request->filled('max_price')) {
+        $query->where('price', '<=', $request->max_price);
+    }
+
+    // Pagination
+    $properties = $query->latest()->paginate(9)->appends($request->query());
+
+    // Villes disponibles
+    $cities = Property::distinct()
+        ->whereNotNull('city')
+        ->pluck('city')
+        ->filter()
+        ->sort()
+        ->values();
+
+    return view('properties', compact('properties', 'cities'));
+}
+
 
     /**
      * Afficher les propriétés de l'agence connectée

@@ -19,7 +19,7 @@
             <div class="col-lg-6 d-none d-lg-block text-white">
                 <div class="pe-5">
                     <h1 class="display-4 fw-bold mb-4" style="text-shadow: 2px 2px 4px rgba(0,0,0,0.3);">
-                        Bienvenue sur <span style="color: #ff6b35;">EMMO</span>
+                        Bienvenue !<span style="color: #ff6b35;"></span>
                     </h1>
                     <p class="lead mb-4" style="text-shadow: 1px 1px 2px rgba(0,0,0,0.3);">
                         Découvrez une nouvelle façon de gérer vos propriétés et de trouver votre logement idéal.

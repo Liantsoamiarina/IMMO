@@ -19,19 +19,19 @@
 <div class="wrap">
   <aside>
     <div class="brand">
-      <img class="logo" src="{{ asset("assets/images/Logo/Logo (2).png") }}" alt="" >
-      <h1>EMMO</h1>
+      <img class="logo" src="{{ asset("assets/images/Logo/MMO.png") }}" alt="" >
+
     </div>
     <nav>
       <a href="{{ route("admin.dashboard") }}" class="nav-item {{ Route::is("admin.dashboard") ? 'active' : '' }}"><i class="fa-solid fa-chart-line"></i> Dashboard</a>
       <a href="{{ route("admin.property") }}" class="nav-item {{ Route::is("admin.property") ? 'active' : '' }}"><i class="fa-solid fa-building"></i> Propriétés</a>
-      <a class="nav-item"><i class="fa-solid fa-user-tie"></i> Client</a>
+      <a href="{{ route("clients") }}" class="nav-item {{ Route::is("clients") ? 'active' : '' }}"><i class="fa-solid fa-user-tie"></i> Client</a>
       <a href="{{ route("admin.subscriptions.index") }}" class="nav-item {{ Route::is("admin.subscriptions.index") ? 'active' : '' }}"><i class="fa-solid fa-user-tie"></i> Abonnement</a>
-      <a class="nav-item"><i class="fa-solid fa-user"></i> My Profile</a>
+      {{-- <a class="nav-item"><i class="fa-solid fa-user"></i> My Profile</a> --}}
 
         <form action="{{ route('logout') }}" method="POST" style="display:flex;">
              @csrf
-         <button type="submit" class=" nav-item" style="background:none;border:none;padding:0;cursor:pointer;"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+         <button type="submit" class=" nav-item" style="background:none;border:none;padding:0;cursor:pointer;padding-left:10px"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
     </nav>
          </button>
              </form>
